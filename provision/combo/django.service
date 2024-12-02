@@ -1,0 +1,14 @@
+[Unit]
+Description=Operations Dashboard Django Web
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=appuser
+WorkingDirectory=/soft/dashboard-1.0/PROD
+ExecStart=/.venv/bin/python /.venv/bin/gunicorn --bind :8080 --workers 3 Operations_Dashboard_Django.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

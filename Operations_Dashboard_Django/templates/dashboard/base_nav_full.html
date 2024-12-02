@@ -1,0 +1,43 @@
+{% extends "dashboard/bootstrap.html" %}
+
+{# Load the tag library #}
+
+{% load django_bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Our application stuff #}
+{% load static %}
+{% load get_settings %}
+
+{% block bootstrap5_content %}
+
+{% block dashboard_global_header %}
+{{ block.super }}
+{% endblock %}
+
+<div class="container-fluid mb-3">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+        {% if page == 'index' %}<a class="nav-link active" aria-current="page" href="#">
+        {% else %}<a class="nav-link" href="{% url 'dashboard:index' %}">
+        {% endif %}Dashboard</a></li>
+
+        <li class="nav-item">
+        {% if page == 'log_out' %}<a class="nav-link active" aria-current="page" href="#">
+        {% else %}<a class="nav-link" href="{% url 'dashboard:clear_and_logout' %}">
+        {% endif %}Log Out ({{ user.username }})</a></li>
+    </ul>
+</div>
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+<div class="container" role="main">
+{% block content %}
+{% endblock %}
+</div> <!-- container -->
+
+{% endblock %}

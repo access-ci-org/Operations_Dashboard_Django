@@ -1,0 +1,30 @@
+version: "3.10"
+   
+services:
+  nginx:
+#   build: ./nginx
+    image: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - static_volume:/soft/dashboard-1.0/www/
+    depends_on:
+      - web
+    restart: "on-failure"
+
+  web:
+#   build: ./web
+    image: dashboard
+#   command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn --bind :8080 --workers 3 "Operations_Dashboard_Django.wsgi:application"
+    volumes:
+      - .:/dashboard
+      - static_volume:/soft/dashboard-1.0/www/
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_CONFIG=/soft/dashboard-1.0/conf/Operations_Dashboard_Django.conf
+      - PGHOST=192.168.99.68
+
+volumes:
+    static_volume:
