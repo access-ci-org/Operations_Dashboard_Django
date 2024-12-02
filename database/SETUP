@@ -1,20 +1,24 @@
+### ONLY ONCE for a new PostgreSQL server
 $ psql -p 5434 postgres
 UPDATE pg_database SET datcollate='en_US.UTF-8', datctype='en_US.UTF-8';
 
+### NEW DATABASE
 CREATE ROLE dashboard_owner WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION ENCRYPTED PASSWORD ‘...’;
 ### IN AWS PRODUCTION, NEXT NEEDED
 GRANT dashboard_owner to opsdba;
 
 CREATE DATABASE dashboard1 WITH OWNER dashboard_owner encoding "UTF8" LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
 
+### NEW ROLE
 $ psql -p 5434 dashboard1
 CREATE ROLE dashboard_django WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION ENCRYPTED PASSWORD ‘...’;
 ### IN AWS PRODUCTION, NEXT NEEDED
 GRANT dashboard_django to opsdba;
 
+## RERUN after DROP OWNED
 CREATE SCHEMA dashboard AUTHORIZATION dashboard_django;
 
-ALTER ROLE dashboard_django SET search_path TO dashboard;
+ALTER ROLE dashboard_django in database dashboard1 SET search_path = 'dashboard';
 
-ALTER ROLE dashboard_owner SET search_path TO dashboard;
+ALTER ROLE dashboard_owner in database dashboard1 SET search_path = 'dashboard';
 
