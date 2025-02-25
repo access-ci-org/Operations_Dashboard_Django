@@ -1,0 +1,149 @@
+body {
+  margin: 0px;
+  font-family: "Archivo", Helvetica, Arial, sans-serif;
+}
+
+.infrastructure-type-card {
+  border: 1px solid #f2efef;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.organization-card {
+  border-radius: 10px;
+  border: 1px solid rgba(49, 148, 164, 0.10);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  .btn.btn-link,
+  .btn.btn-link:hover {
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+}
+
+.resource-card {
+  border: 1px solid rgba(49, 148, 164, 0.10);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  position: relative;
+
+  .resource-card-header {
+    border-radius: 10px;
+    position: relative;
+    text-overflow: ellipsis;
+
+    h3 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      padding-left: 80px;
+      padding-right: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .resource-card-header-thumbnail {
+      position: absolute;
+      top: 72px;
+
+      .resource-card-header-icon {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        height: 80px;
+        width: 80px;
+        border: 3px solid #FFA500;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .resource-card-body {
+    padding: 10px;
+    padding-top: 81px;
+
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 72px;
+    }
+  }
+}
+
+
+.badge-card {
+  border: 1px solid rgba(49, 148, 164, 0.10);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+
+  .badge-card-header {
+    h3 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .badge-card-header-thumbnail {
+      .badge-card-header-icon {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        height: 80px;
+        width: 100%;
+      }
+    }
+  }
+
+  .badge-card-body {
+    padding: 10px;
+
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 72px;
+    }
+  }
+}
+
+.resource_badge_prerequisite_card,
+.resource_badge_task_card {
+  border: 1px solid #F5F5F5;
+  border-radius: 10px;
+  border-left-width: 30px;
+}
+
+.background-image-center-no-repeat {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.search-input {
+  .input-group-text {
+    background: transparent;
+  }
+
+  input.form-control {
+    border-left: none;
+  }
+}
+
+
+.nav-underline .nav-link.active, .nav-underline .show > .nav-link {
+  color: red;
+  border-bottom-color: red;
+}

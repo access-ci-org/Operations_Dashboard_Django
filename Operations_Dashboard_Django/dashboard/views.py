@@ -36,8 +36,8 @@ def unprivileged(request):
 def is_privileged(request):
     return True if request.user.username == 'navarro' else False
 
-@login_required
-@user_passes_test(viewers_check, login_url=reverse_lazy('dashboard:unprivileged'))
+#@login_required
+#@user_passes_test(viewers_check, login_url=reverse_lazy('dashboard:unprivileged'))
 def index(request):
     """
     Main dashboard

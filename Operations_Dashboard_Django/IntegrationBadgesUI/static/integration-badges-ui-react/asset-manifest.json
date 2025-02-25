@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/integration-badges-ui-react/css/main.css",
+    "main.js": "/static/integration-badges-ui-react/js/main.js",
+    "js/453.chunk.js": "/static/integration-badges-ui-react/js/453.chunk.js",
+    "media/bootstrap-icons.woff?": "/static/integration-badges-ui-react/media/bootstrap-icons..woff",
+    "media/bootstrap-icons.woff2?": "/static/integration-badges-ui-react/media/bootstrap-icons..woff2",
+    "media/roadmaps-banner.jpeg": "/static/integration-badges-ui-react/media/roadmaps-banner..jpeg",
+    "index.html": "/static/integration-badges-ui-react/index.html",
+    "main.css.map": "/static/integration-badges-ui-react/css/main.css.map",
+    "main.js.map": "/static/integration-badges-ui-react/js/main.js.map",
+    "453.chunk.js.map": "/static/integration-badges-ui-react/js/453.chunk.js.map"
+  },
+  "entrypoints": [
+    "css/main.css",
+    "js/main.js"
+  ]
+}

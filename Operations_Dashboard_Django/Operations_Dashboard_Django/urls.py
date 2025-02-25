@@ -25,6 +25,9 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls', namespace="dashboard")),
+    path('integration/', include('integration.urls', namespace="integration")),
+    path('IntegrationBadgesUI/', include('IntegrationBadgesUI.urls')),
     path('favicon.ico', views.favicon),
-    path('', RedirectView.as_view(url=django_settings.LOGIN_URL) )
+#    path('', RedirectView.as_view(url=django_settings.LOGIN_URL) )
+    path('', RedirectView.as_view(url='IntegrationBadgesUI') )
 ]

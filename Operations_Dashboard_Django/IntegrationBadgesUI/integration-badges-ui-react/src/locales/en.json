@@ -1,0 +1,24 @@
+{
+  "badgeWorkflowStatus": {
+    "undefined": "Not Started",
+    "not-planned": "Not Started",
+    "planned": "In Progress",
+    "task-completed":  "Verification Pending",
+    "verification-failed":  "Verification Failed",
+    "verified":  "Verification Approved",
+    "deprecated": "Deprecated"
+  },
+  "badgeWorkflowStatusClass": {
+    "undefined": "",
+    "not-planned": "",
+    "planned": "bg-light",
+    "task-completed":  "bg-warning-subtle",
+    "verification-failed":  "bg-danger-subtle",
+    "verified":  "bg-light",
+    "deprecated": "bg-secondary-subtle"
+  },
+  "badgeTaskWorkflowStatus": {
+    "completed": "Completed",
+    "not-completed": "Not Completed"
+  }
+}

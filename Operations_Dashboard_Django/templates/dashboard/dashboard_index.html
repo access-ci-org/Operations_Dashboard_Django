@@ -5,23 +5,7 @@
 {% block title %}{% settings_value "APP_NAME" %}{% endblock %}
 
 {% block content %}
-<!--
-<button type="button" class="btn btn-outline-success" role="button"
-    {% if expand_all %}
-    <span class="glyphicon glyphicon-chevron-up"></span>
-    Collapse All
-    {% else %}
-    <span class="glyphicon glyphicon-chevron-down"></span>
-    Expand All
-    {% endif %}
-</button>
--->
 
-<!-- color:green; -->
-<a href="{% url 'dashboard:index' %}"
-    class="btn btn-outline-success" role="button"
-    style="margin-bottom:15px;">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-    Home</a>
+<a class="btn btn-dark w-100" style="max-width: 300px;" href="/IntegrationBadgesUI">Integration Badges UI</a>
 
 {% endblock %}

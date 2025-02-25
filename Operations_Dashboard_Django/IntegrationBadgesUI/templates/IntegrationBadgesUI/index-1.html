@@ -1,0 +1,127 @@
+
+<link
+  rel="stylesheet"
+  id="google-font-archivo-css"
+  href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,70,400;0,100,400;0,100,500;0,100,600;0,100,700;0,100,800;1,100,400&amp;display=swap"
+  media="all"
+/>
+
+
+{% load static %}
+<script defer="defer" src="{% static 'integration-badges-ui-react/js/main.js'%}"></script>
+<link href="{% static 'integration-badges-ui-react/css/main.css'%}" rel="stylesheet" />
+
+<noscript>You need to enable JavaScript to run this app.</noscript>
+
+<style>
+    body {
+      margin: 0px;
+      font-family: "Archivo", Helvetica, Arial, sans-serif;
+    }
+
+    #body {
+        padding: 15px;
+    }
+</style>
+
+
+<div id="universal-menus"></div>
+<div id="header"></div>
+<div id="site-menus"></div>
+<div id="main" class="container">
+  <div id="body">
+    <div id="Operations_WebApp_IntegrationBadges"></div>
+  </div>
+  <div id="table-of-contents"></div>
+</div>
+<div id="footer-menus"></div>
+<div id="footer"></div>
+<script type="module">
+
+  import {
+    footer,
+    footerMenus,
+    header,
+    siteMenus,
+    tableOfContents,
+    universalMenuItems,
+    universalMenus,
+  } from "https://esm.sh/@access-ci/ui@0.3.1";
+
+  const siteItems = [
+    {
+      name: "Focus Areas",
+      items: [
+        {
+          name: "Cybersecurity",
+          href: "/pub/cybersecurity",
+        },
+        {
+          name: "Networking & Data Transfer",
+          href: "/pub/data_n_networking",
+        },
+        {
+          name: "Operational Support",
+          href: "/pub/operational_support",
+        },
+        {
+          name: "Student Training & Engagement Program",
+          href: "/step",
+        },
+      ],
+    },
+    {
+      name: "Infrastructure",
+      items: [
+        {
+          name: "Existing Infrastructure",
+          href: "/resources/access-allocated",
+        },
+        {
+          name: "New Infrastructure",
+          href: "/pub/access-infrastructure-integration",
+        },
+      ],
+    },
+    {
+      name: "FAQs",
+      href: "/faqs",
+    },
+    {
+      name: "Help",
+      href: "/help",
+    },
+  ];
+
+  universalMenus({
+    isLoggedIn: document.cookie.split("; ").includes("SESSaccesscisso=Operations"),
+    loginUrl: "/login",
+    logoutUrl: "/logout",
+    siteName: "Operations",
+    target: document.getElementById("universal-menus"),
+  });
+
+  header({
+    siteName: "Operations",
+    target: document.getElementById("header"),
+  });
+
+  siteMenus({
+    items: siteItems,
+    siteName: "Operations",
+    target: document.getElementById("site-menus"),
+  });
+
+  tableOfContents({
+    headings: document.querySelectorAll("#body h1, #body h2"),
+    target: document.getElementById("table-of-contents"),
+  });
+
+  footerMenus({
+    items: siteItems,
+    target: document.getElementById("footer-menus"),
+  });
+
+  footer({ target: document.getElementById("footer") });
+</script>
+

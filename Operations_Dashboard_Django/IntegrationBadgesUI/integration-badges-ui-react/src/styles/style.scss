@@ -1,0 +1,14 @@
+
+// Include ACCESS
+@import 'variables_access';
+
+// Bootstrap overriden variables.
+// @see https://getbootstrap.com/docs/5.2/customize/sass/#variable-defaults.
+@import 'variables_bootstrap';
+
+// Include bootstrap.
+@import 'bootstrap/scss/bootstrap';
+
+// Include ACCESS
+@import 'styles_access';
+

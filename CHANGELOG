@@ -1,3 +1,7 @@
 v0.1.0 2024-11-28 JP
   - Borrowed from ServiceIndex to setup the Dashboard Django project
   - Remove ServiceIndex models, views, serializers, keep only the headers, footers, login/logout
+
+v0.2.0 2025-02-25 JP
+  - New IntegrationBadgesUI by Dinuka
+  - New integration/ app to explore dynamic WebAPP URLs

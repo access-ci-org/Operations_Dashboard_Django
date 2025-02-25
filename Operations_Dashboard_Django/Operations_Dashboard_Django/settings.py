@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'dashboard',
+    'integration',
+    'IntegrationBadgesUI',
     # For django-allauth
     'django.contrib.sites',
     'allauth',
@@ -139,6 +141,12 @@ TEMPLATES = [
                 'django.template'
                 '.context_processors.request',
 #                'django.template.context_processors.debug',
+# Add if needed by Dinuka's badges
+#                'django.template.context_processors.i18n',
+#                'django.template.context_processors.media',
+#                'django.template.context_processors.static',
+#                'django.template.context_processors.tz',
+#
             ],
         },
     },
