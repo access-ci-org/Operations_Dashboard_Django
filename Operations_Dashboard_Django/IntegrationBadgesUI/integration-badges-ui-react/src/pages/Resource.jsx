@@ -2,11 +2,12 @@ import {Link, useParams} from "react-router-dom";
 import {useOrganizations} from "../contexts/OrganizationsContext";
 import {useResources} from "../contexts/ResourcesContext";
 import {useEffect, useState} from "react";
-import {Nav} from "react-bootstrap";
+import {Collapse, Fade, Nav} from "react-bootstrap";
 import {BadgeWorkflowStatus, useBadges} from "../contexts/BadgeContext";
 
 import defaultBadgeIcon from "../assets/badge_icon_default.png"
 import {useTranslation} from "react-i18next";
+import LoadingBlock from "../components/LoadingBlock";
 
 export default function Resource() {
     const {t} = useTranslation();
@@ -14,7 +15,9 @@ export default function Resource() {
     const {fetchOrganizations} = useOrganizations();
     const {fetchResource, getResource, getResourceBadges, getResourceOrganization} = useResources();
     const {fetchBadges} = useBadges();
+
     const [filterSelection, setFilterSelection] = useState({});
+    const [activeTabIndex, setActiveTabIndex] = useState(1);
 
     useEffect(() => {
         fetchResource({resourceId});
@@ -25,6 +28,39 @@ export default function Resource() {
     const resource = getResource({resourceId});
     let organization = getResourceOrganization({resourceId})
     let badges = getResourceBadges({resourceId});
+
+    let badgeGroups = {
+        [BadgeWorkflowStatus.NOT_PLANNED]: [],
+        [BadgeWorkflowStatus.PLANNED]: [],
+        [BadgeWorkflowStatus.TASK_COMPLETED]: [],
+        [BadgeWorkflowStatus.VERIFICATION_FAILED]: [],
+        [BadgeWorkflowStatus.VERIFIED]: [],
+        [BadgeWorkflowStatus.DEPRECATED]: [],
+    };
+
+    if (badges && badges.length > 0) {
+        for (let i = 0; i < badges.length; i++) {
+            const badge = badges[i];
+            if (badge.status) {
+                badgeGroups[badge.status].push(badge);
+            }
+        }
+    }
+
+    const tabs = [
+        // Verified
+        badgeGroups[BadgeWorkflowStatus.VERIFIED],
+
+        // All
+        badges,
+
+        // Waiting for Verification
+        badgeGroups[BadgeWorkflowStatus.TASK_COMPLETED],
+
+        // Verification Failed
+        badgeGroups[BadgeWorkflowStatus.VERIFICATION_FAILED]
+    ];
+
 
     if (resource && organization) {
         return <div className="container">
@@ -65,64 +101,47 @@ export default function Resource() {
 
             <div className="row">
                 <h2>Badges</h2>
-                {(() => {
+                <Nav variant="underline" defaultActiveKey="1" className="ps-3" onSelect={setActiveTabIndex}>
+                    <Nav.Item>
+                        <Nav.Link eventKey="0" disabled={tabs[0].length < 1}>
+                            Verification Approved ({tabs[0].length})
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="1" disabled={tabs[1].length < 1}>All ({tabs[1].length})</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="2" disabled={tabs[2].length < 0}>
+                            Verification Pending({tabs[2].length})
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="3" disabled={tabs[3].length < 0}>Verification Failed
+                            ({tabs[3].length})
+                        </Nav.Link>
+                    </Nav.Item>
+                </Nav>
 
-                    let badgeStatistics = {
-                        [BadgeWorkflowStatus.NOT_PLANNED]: 0,
-                        [BadgeWorkflowStatus.PLANNED]: 0,
-                        [BadgeWorkflowStatus.TASK_COMPLETED]: 0,
-                        [BadgeWorkflowStatus.VERIFICATION_FAILED]: 0,
-                        [BadgeWorkflowStatus.VERIFIED]: 0,
-                        [BadgeWorkflowStatus.DEPRECATED]: 0,
-                    };
-
-                    if (badges && badges.length > 0) {
-                        for (let i = 0; i < badges.length; i++) {
-                            const badge = badges[i];
-                            badgeStatistics[badge.status]++;
-                        }
-
-                        return <Nav variant="underline" defaultActiveKey="1" className="ps-3">
-                            <Nav.Item>
-                                <Nav.Link eventKey="0">
-                                    Verification Approved ({badgeStatistics[BadgeWorkflowStatus.VERIFIED]})
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="1">All ({badges.length})</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="2">
-                                    Verification Pending
-                                    ({badgeStatistics[BadgeWorkflowStatus.TASK_COMPLETED]
-                                    + badgeStatistics[BadgeWorkflowStatus.VERIFICATION_FAILED]})
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="3">Verification Failed
-                                    ({badgeStatistics[BadgeWorkflowStatus.VERIFICATION_FAILED]})</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                    }
-
-                    return null
-                })()}
-
-
-                <div className="w-100 pt-2 pb-5 row row-cols-3">
-                    {badges && badges.map((badge) => {
-                        return <div className="col p-3" key={badge.badge_id}>
-                            {getBadgeCard(organization, resource, badge, t)}
+                {tabs.map((tabBadges, tabIndex) => {
+                    return <Collapse in={tabIndex == activeTabIndex} key={tabIndex}>
+                        <div className="w-100 pt-2 pb-5 row row-cols-3">
+                            {tabBadges && tabBadges.map((badge) => {
+                                return <div className="col p-3" key={badge.badge_id}>
+                                    {getBadgeCard(organization, resource, badge, t)}
+                                </div>
+                            })}
+                            {tabBadges && tabBadges.length === 0 &&
+                                <div className="w-100 p-3 text-center lead">
+                                    No badges available
+                                </div>}
                         </div>
-                    })}
-                    {badges && badges.length === 0 && <div className="w-100 p-3 text-center lead">
-                        No badges available
-                    </div>}
-                </div>
+                    </Collapse>
+                })}
+
             </div>
         </div>
     } else {
-        return <div>Loading...</div>
+        return <LoadingBlock/>
     }
 
 }

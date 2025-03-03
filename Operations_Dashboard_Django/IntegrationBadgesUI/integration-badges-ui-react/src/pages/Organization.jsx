@@ -158,7 +158,6 @@ export default function Organization() {
 }
 
 function getResourceCard(organization, resource, badges) {
-    console.log("##### getResourceCard ", [organization, resource, badges])
     return <div className="w-100 resource-card p-2">
         <div className="w-100 bg-light p-1 resource-card-header">
             <div className="w-100 ps-2">
