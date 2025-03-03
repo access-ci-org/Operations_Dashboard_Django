@@ -3,7 +3,7 @@ import {useOrganizations} from "../contexts/OrganizationsContext";
 import {useResources} from "../contexts/ResourcesContext";
 import {useEffect, useState} from "react";
 import {Nav} from "react-bootstrap";
-import {useBadges} from "../contexts/BadgeContext";
+import {BadgeWorkflowStatus, useBadges} from "../contexts/BadgeContext";
 
 import defaultBadgeIcon from "../assets/badge_icon_default.png"
 import {useTranslation} from "react-i18next";
@@ -65,21 +65,49 @@ export default function Resource() {
 
             <div className="row">
                 <h2>Badges</h2>
+                {(() => {
 
-                <Nav variant="underline" defaultActiveKey="1" className="ps-3">
-                    <Nav.Item>
-                        <Nav.Link eventKey="0">Verification Approved (1)</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="1">All (9)</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="2">Verification Pending (3)</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="3">Verification Failed (5)</Nav.Link>
-                    </Nav.Item>
-                </Nav>
+                    let badgeStatistics = {
+                        [BadgeWorkflowStatus.NOT_PLANNED]: 0,
+                        [BadgeWorkflowStatus.PLANNED]: 0,
+                        [BadgeWorkflowStatus.TASK_COMPLETED]: 0,
+                        [BadgeWorkflowStatus.VERIFICATION_FAILED]: 0,
+                        [BadgeWorkflowStatus.VERIFIED]: 0,
+                        [BadgeWorkflowStatus.DEPRECATED]: 0,
+                    };
+
+                    if (badges && badges.length > 0) {
+                        for (let i = 0; i < badges.length; i++) {
+                            const badge = badges[i];
+                            badgeStatistics[badge.status]++;
+                        }
+
+                        return <Nav variant="underline" defaultActiveKey="1" className="ps-3">
+                            <Nav.Item>
+                                <Nav.Link eventKey="0">
+                                    Verification Approved ({badgeStatistics[BadgeWorkflowStatus.VERIFIED]})
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="1">All ({badges.length})</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="2">
+                                    Verification Pending
+                                    ({badgeStatistics[BadgeWorkflowStatus.TASK_COMPLETED]
+                                    + badgeStatistics[BadgeWorkflowStatus.VERIFICATION_FAILED]})
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="3">Verification Failed
+                                    ({badgeStatistics[BadgeWorkflowStatus.VERIFICATION_FAILED]})</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    }
+
+                    return null
+                })()}
+
 
                 <div className="w-100 pt-2 pb-5 row row-cols-3">
                     {badges && badges.map((badge) => {
@@ -87,6 +115,9 @@ export default function Resource() {
                             {getBadgeCard(organization, resource, badge, t)}
                         </div>
                     })}
+                    {badges && badges.length === 0 && <div className="w-100 p-3 text-center lead">
+                        No badges available
+                    </div>}
                 </div>
             </div>
         </div>

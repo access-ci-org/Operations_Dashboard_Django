@@ -229,6 +229,12 @@ export default function ResourceBadge() {
                                 <i className="bi bi-check-square me-3"></i>
                                 Reopen
                             </button>
+                        } else if (badge.status === BadgeWorkflowStatus.VERIFIED) {
+                            return <button className="w-100 btn btn-outline-dark"
+                                           onClick={setBadgeActionStatusProcessing.bind(this, BadgeWorkflowStatus.TASK_COMPLETED)}>
+                                <i className="bi bi-check-square me-3"></i>
+                                Submit for Verification
+                            </button>
                         }
                     })()}
 

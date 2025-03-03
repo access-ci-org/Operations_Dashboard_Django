@@ -2,6 +2,7 @@ import {useOrganizations} from "../contexts/OrganizationsContext";
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {useResources} from "../contexts/ResourcesContext";
+import LoadingBlock from "../components/LoadingBlock";
 
 /**
  * The initial page that displays al resources.
@@ -55,29 +56,31 @@ export default function IntegrationDashboard() {
                 </div>
             </div>
 
-            <div className="row mt-2 row-cols-4">
-                {filteredOrganizations && filteredOrganizations.map((organization, organizationIndex) => {
-                    return <div key={organizationIndex} className="col p-3">
-                        <div className="organization-card w-100 h-100">
-                            <div className="w-100 p-3"></div>
-                            <div className="w-100 p-5 bg-light" style={{
-                                backgroundImage: `url(${organization.other_attributes.organization_logo_url})`,
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "contain",
-                                backgroundPosition: "center"
-                            }}>
-                                {/*<img className="w-100" src={organization.other_attributes.organization_logo_url}/>*/}
-                            </div>
-                            <div className="w-100 p-3 text-center">
-                                <Link className="btn btn-link" to={"/organizations/" + organization.organization_id}>
-                                    {organization.organization_name}
-                                </Link>
+            <LoadingBlock processing={!filteredOrganizations || filteredOrganizations.length === 0} className="pt-4 pb-5">
+                <div className="row mt-2 row-cols-4">
+                    {filteredOrganizations && filteredOrganizations.map((organization, organizationIndex) => {
+                        return <div key={organizationIndex} className="col p-3">
+                            <div className="organization-card w-100 h-100">
+                                <div className="w-100 p-3"></div>
+                                <div className="w-100 p-5 bg-light" style={{
+                                    backgroundImage: `url(${organization.other_attributes.organization_logo_url})`,
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "contain",
+                                    backgroundPosition: "center"
+                                }}>
+                                    {/*<img className="w-100" src={organization.other_attributes.organization_logo_url}/>*/}
+                                </div>
+                                <div className="w-100 p-3 text-center">
+                                    <Link className="btn btn-link"
+                                          to={"/organizations/" + organization.organization_id}>
+                                        {organization.organization_name}
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                })}
-            </div>
-
+                    })}
+                </div>
+            </LoadingBlock>
         </div>
     );
 }

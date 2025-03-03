@@ -48,7 +48,7 @@ export const ResourcesProvider = ({children}) => {
     const {taskMap, badgeTaskIdMap} = useTasks();
     const {getOrganization} = useOrganizations();
 
-    const [resources, setResources] = useReducer(DefaultReducer, []);
+    const [resources, setResources] = useReducer(DefaultReducer, null);
     const [resourceMap, setResourceMap] = useReducer(DefaultReducer, {});
     const [resourceBadgeStatusMap, setResourceBadgeStatusMap] = useReducer(DefaultReducer, {});
     const [resourceBadgeTaskStatusMap, setResourceBadgeTaskStatusMap] = useReducer(DefaultReducer, {});
@@ -125,6 +125,12 @@ export const ResourcesProvider = ({children}) => {
                 _resourceBadgeTaskStatusMap[resourceId] = _getBadgeTaskStatusMapFromResourceResponse(resource)
             }
 
+
+            setResourceMap({
+                ...resourceMap,
+                ..._resourceMap
+            });
+
             setResourceBadgeStatusMap({
                 ...resourceBadgeStatusMap,
                 ..._resourceBadgeStatusMap
@@ -133,11 +139,6 @@ export const ResourcesProvider = ({children}) => {
                 ...resourceBadgeTaskStatusMap,
                 ..._resourceBadgeTaskStatusMap
             })
-
-            setResourceMap({
-                ...resourceMap,
-                ..._resourceMap
-            });
 
 
             return responseList;
@@ -153,13 +154,18 @@ export const ResourcesProvider = ({children}) => {
             } else {
                 const response = await axios.get('/resources');
                 const _resources = response.data.results;
-                setResources(_resources);
                 const _resourceMap = {};
                 const _resourceOrgMap = {};
                 for (let i = 0; i < _resources.length; i++) {
                     let resource = _resources[i];
                     let resourceId = resource.cider_resource_id;
-                    _resourceMap[resourceId] = resource;
+
+                    _resourceMap[resourceId] = {
+                        ...getResource({resourceId}),
+                        ...resource
+                    };
+
+                    _resources[i] = _resourceMap[resourceId];
 
                     let resourceOrg = resource.organization_name;
                     if (_resourceOrgMap[resourceOrg]) {
@@ -169,6 +175,8 @@ export const ResourcesProvider = ({children}) => {
                     }
                 }
 
+
+                setResources(_resources);
                 setResourceMap(_resourceMap);
                 setResourceOrgMap(_resourceOrgMap);
 

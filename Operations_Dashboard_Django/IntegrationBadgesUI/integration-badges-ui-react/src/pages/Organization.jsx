@@ -3,6 +3,9 @@ import {useEffect, useState} from "react";
 import {Link, useParams, useSearchParams} from "react-router-dom";
 import {useResources} from "../contexts/ResourcesContext";
 
+import defaultBadgeIcon from "../assets/badge_icon_default.png"
+import {useBadges} from "../contexts/BadgeContext";
+import LoadingBlock from "../components/LoadingBlock";
 
 const filters = ["All Resources", "In Progress", "Complete - Active Integration", "Pending Verification",
     "Verification Failed"];
@@ -17,39 +20,44 @@ export default function Organization() {
     const {organizationId} = useParams();
     const {organizationMap, fetchOrganization} = useOrganizations();
     const {
+        resources,
+        resourceMap,
         fetchResources,
         fetchSelectedResources,
         getResource,
+        getResourceBadges,
         getOrganizationResourceIds
     } = useResources();
+    const {fetchBadges} = useBadges();
     const [filterSelection, setFilterSelection] = useState({});
     const [resourceIds, setResourceIds] = useState([]);
 
     const organization = organizationMap[organizationId];
 
-
     useEffect(() => {
+        fetchBadges();
         fetchResources();
         fetchOrganization({organizationId});
     }, []);
 
     useEffect(() => {
-        if (organization) {
+        if (organization && resources) {
             setResourceIds(getOrganizationResourceIds({organizationName: organization.organization_name}));
         }
-    }, [organization]);
+    }, [organization, resources]);
 
     useEffect(() => {
-        if (organization && resourceIds) {
+        if (resourceIds) {
             fetchSelectedResources({resourceIds});
         }
-    }, [organization, resourceIds])
+    }, [resourceIds])
 
     if (organization) {
         let inProgressResources = []
         let establishedResources = []
+        let processing = false;
 
-        if (resourceIds) {
+        if (resourceIds && resourceIds.length > 0) {
             for (let i = 0; i < resourceIds.length; i++) {
                 let resourceId = resourceIds[i];
                 let resource = getResource({resourceId})
@@ -57,9 +65,14 @@ export default function Organization() {
                     establishedResources.push(resource);
                 } else if (resource.roadmaps) {
                     inProgressResources.push(resource);
+                } else {
+                    processing = true;
                 }
             }
+        } else {
+            processing = true;
         }
+
 
         return <div className="container">
             <div className="row">
@@ -105,36 +118,47 @@ export default function Organization() {
                         return <a key={filterIndex} className={badgeClassName}>{filter}</a>
                     })}
                 </div>
-                <div className="col-12 pt-4">
-                    <h2>In Progress</h2>
-                    <div className="w-100 row row-cols-3">
-                        {inProgressResources.map((resource, resourceIndex) => {
-                            return <div className="col p-3" key={resourceIndex}>
-                                {getResourceCard(organization, resource, resourceIndex)}
-                            </div>
-                        })}
-                    </div>
-                </div>
-                <div className="col-12 pt-4">
-                    <h2>Current Integrations</h2>
 
-                    <div className="w-100 row row-cols-3">
-                        {establishedResources.map((resource, resourceIndex) => {
-                            return <div className="col p-3" key={resourceIndex}>
-                                {getResourceCard(organization, resource, resourceIndex)}
+                <div className="container">
+                    <LoadingBlock processing={processing} className="pt-4 pb-5">
+                        <div className="col-12 pt-4">
+                            <h2>In Progress</h2>
+                            <div className="w-100 row row-cols-3">
+                                {inProgressResources.map((resource, resourceIndex) => {
+                                    let badges = getResourceBadges({resourceId: resource.cider_resource_id});
+
+                                    return <div className="col p-3" key={resourceIndex}>
+                                        {getResourceCard(organization, resource, badges)}
+                                    </div>
+                                })}
                             </div>
-                        })}
-                    </div>
+                        </div>
+                        <div className="col-12 pt-4">
+                            <h2>Current Integrations</h2>
+
+                            <div className="w-100 row row-cols-3">
+                                {establishedResources.map((resource, resourceIndex) => {
+                                    let badges = getResourceBadges({resourceId: resource.cider_resource_id});
+                                    return <div className="col p-3" key={resourceIndex}>
+                                        {getResourceCard(organization, resource, badges)}
+                                    </div>
+                                })}
+                            </div>
+                        </div>
+                    </LoadingBlock>
                 </div>
             </div>
         </div>
 
     } else {
-        return <div>Loading</div>
+        return <div className="container">
+            <LoadingBlock/>
+        </div>
     }
 }
 
-function getResourceCard(organization, resource) {
+function getResourceCard(organization, resource, badges) {
+    console.log("##### getResourceCard ", [organization, resource, badges])
     return <div className="w-100 resource-card p-2">
         <div className="w-100 bg-light p-1 resource-card-header">
             <div className="w-100 ps-2">
@@ -149,6 +173,20 @@ function getResourceCard(organization, resource) {
             </div>
         </div>
         <div className="w-100 resource-card-body">
+            <div className=" w-100 resource-card-badge-list d-flex flex-row">
+                {badges && badges.slice(0, 3).map(badge => {
+                    return <div className="background-image-center-no-repeat" key={badge.badge_id}
+                                style={{backgroundImage: `url(${defaultBadgeIcon})`, width: 40, height: 40}}>
+                    </div>
+                })}
+                {badges && badges.length > 3 && <div>
+                    <Link to={`/resources/${resource.cider_resource_id}`}
+                          className="btn btn-link text-secondary p-2 text-decoration-none">
+                        +{badges.length - 3}
+                    </Link>
+                </div>}
+            </div>
+
             <p className="w-100">
                 {resource.resource_description}
             </p>

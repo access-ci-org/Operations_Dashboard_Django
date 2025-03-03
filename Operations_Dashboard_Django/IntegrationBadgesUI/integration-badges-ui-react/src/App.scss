@@ -61,11 +61,17 @@ body {
         border-radius: 50%;
       }
     }
+
   }
 
   .resource-card-body {
     padding: 10px;
-    padding-top: 81px;
+
+
+    .resource-card-badge-list {
+      padding-left: 150px;
+      height: 80px;
+    }
 
     p {
       display: -webkit-box;
