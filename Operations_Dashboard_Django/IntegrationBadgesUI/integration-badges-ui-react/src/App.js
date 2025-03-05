@@ -2,32 +2,44 @@ import './App.scss';
 import './styles/style.scss';
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import {Outlet, Route, Routes, BrowserRouter} from 'react-router-dom';
+import {Outlet, Route, Routes, BrowserRouter, useParams} from 'react-router-dom';
 import axios from "axios";
-import {BadgeProvider} from "./contexts/BadgeContext";
-import {ResourcesProvider} from "./contexts/ResourcesContext";
+import {BadgeProvider, useBadges} from "./contexts/BadgeContext";
+import {ResourcesProvider, useResources} from "./contexts/ResourcesContext";
 import NewResource from "./pages/NewResource";
 import IntegrationDashboard from "./pages/IntegrationDashboard";
-import {OrganizationsProvider} from "./contexts/OrganizationsContext";
+import {OrganizationsProvider, useOrganizations} from "./contexts/OrganizationsContext";
 import Organization from "./pages/Organization";
 import Home from "./pages/Home";
 import CustomizedBreadcrumb from "./components/CustomizedBreadcrumb";
 import Resource from "./pages/Resource";
 import ResourceBadge from "./pages/ResourceBadge";
-import {TaskProvider} from "./contexts/TaskContext";
+import {TaskProvider, useTasks} from "./contexts/TaskContext";
 import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
+import {useEffect, useState} from "react";
+import LoadingBlock from "./components/LoadingBlock";
 
 // Setting the default baseURL
 axios.defaults.baseURL = process.env.REACT_APP_OPERATIONS_API_URL;
 
 const RouterLayout = () => {
+    const {fetchOrganizations, organizations} = useOrganizations();
+    const {fetchResources, resources} = useResources();
+    const {fetchBadges} = useBadges();
+
+    useEffect(() => {
+        fetchResources();
+        fetchOrganizations();
+        fetchBadges();
+    }, []);
+
     return (
         <div className="w-100 access-operations-integration-badges">
             <div className="container">
                 <CustomizedBreadcrumb/>
             </div>
-            <Outlet/>
+            {resources && organizations ? <Outlet/> : <LoadingBlock processing={true}/>}
         </div>
     );
 };

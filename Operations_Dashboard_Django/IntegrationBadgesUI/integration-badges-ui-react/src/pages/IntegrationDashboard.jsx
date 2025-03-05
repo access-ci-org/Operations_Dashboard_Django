@@ -13,10 +13,10 @@ export default function IntegrationDashboard() {
     const {resourceOrgMap, fetchResources} = useResources();
     const {organizations, fetchOrganizations} = useOrganizations();
 
-    useEffect(() => {
-        fetchResources();
-        fetchOrganizations();
-    }, [])
+    // useEffect(() => {
+    //     fetchResources();
+    //     fetchOrganizations();
+    // }, [])
 
     const filteredOrganizations = organizations.filter(organization => {
         return resourceOrgMap[organization.organization_name];

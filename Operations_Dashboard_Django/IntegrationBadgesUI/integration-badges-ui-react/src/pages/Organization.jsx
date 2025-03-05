@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {Link, useParams, useSearchParams} from "react-router-dom";
 import {useResources} from "../contexts/ResourcesContext";
 
-import defaultBadgeIcon from "../assets/badge_icon_default.png"
 import {useBadges} from "../contexts/BadgeContext";
 import LoadingBlock from "../components/LoadingBlock";
 
@@ -35,8 +34,8 @@ export default function Organization() {
     const organization = organizationMap[organizationId];
 
     useEffect(() => {
-        fetchBadges();
-        fetchResources();
+        // fetchBadges();
+        // fetchResources();
         fetchOrganization({organizationId});
     }, []);
 
@@ -152,7 +151,7 @@ export default function Organization() {
 
     } else {
         return <div className="container">
-            <LoadingBlock/>
+            <LoadingBlock processing={true}/>
         </div>
     }
 }
@@ -175,7 +174,7 @@ function getResourceCard(organization, resource, badges) {
             <div className=" w-100 resource-card-badge-list d-flex flex-row">
                 {badges && badges.slice(0, 3).map(badge => {
                     return <div className="background-image-center-no-repeat" key={badge.badge_id}
-                                style={{backgroundImage: `url(${defaultBadgeIcon})`, width: 40, height: 40}}>
+                                style={{backgroundImage: `url(${badge.graphic})`, width: 40, height: 40}}>
                     </div>
                 })}
                 {badges && badges.length > 3 && <div>

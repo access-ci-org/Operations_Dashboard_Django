@@ -4,7 +4,6 @@ import {useResources} from "../contexts/ResourcesContext";
 import {BadgeWorkflowStatus, useBadges} from "../contexts/BadgeContext";
 import {useEffect, useState} from "react";
 
-import defaultBadgeIcon from "../assets/badge_icon_default.png"
 import {BadgeTaskWorkflowStatus, useTasks} from "../contexts/TaskContext";
 import Accordion from "react-bootstrap/Accordion";
 import {useTranslation} from "react-i18next";
@@ -33,8 +32,8 @@ export default function ResourceBadge() {
 
     useEffect(() => {
         fetchResource({resourceId});
-        fetchOrganizations();
-        fetchBadges();
+        // fetchOrganizations();
+        // fetchBadges();
         fetchBadge({badgeId});
         fetchTasks({badgeId});
     }, []);
@@ -80,7 +79,7 @@ export default function ResourceBadge() {
                     </div>
                     <div className="row pt-5">
                         <div className="col-lg-2 background-image-center-no-repeat"
-                             style={{backgroundImage: `url(${defaultBadgeIcon})`}}>
+                             style={{backgroundImage: `url(${badge.graphic})`}}>
 
                         </div>
                         <div className="col-lg-10">
@@ -132,7 +131,7 @@ export default function ResourceBadge() {
                             <div className="row resource_badge_prerequisite_card">
                                 <div className="col-lg-4 d-flex flex-row">
                                     <div className="background-image-center-no-repeat"
-                                         style={{backgroundImage: `url(${defaultBadgeIcon})`, width: 60, height: 60}}>
+                                         style={{backgroundImage: `url(${badge.graphic})`, width: 60, height: 60}}>
                                     </div>
                                     <h4 className="col-lg-3 h-100 flex-fill ps-2 pe-2 pt-3 text-center">{prerequisiteBadge.name}</h4>
                                 </div>
