@@ -36,7 +36,7 @@ export default function ResourceBadge() {
         // fetchBadges();
         fetchBadge({badgeId});
         fetchTasks({badgeId});
-    }, []);
+    }, [resourceId, badgeId]);
 
     const clickTaskAction = async (taskId, status) => {
         setTaskActionStatusProcessing({
@@ -63,10 +63,10 @@ export default function ResourceBadge() {
     let tasks = getResourceBadgeTasks({resourceId, badgeId});
     let prerequisiteBadges = getResourceBadgePrerequisites({resourceId, badgeId});
 
-    if (resource && organization && badge && tasks) {
+    if (resource && organization && badge && tasks && prerequisiteBadges) {
         return <div className="container">
             <div className="row">
-                <div className="col-lg-9">
+                <div className="col-lg-12">
                     <div className="row">
                         <h1>{resource.resource_descriptive_name}</h1>
                         <div>
@@ -109,38 +109,31 @@ export default function ResourceBadge() {
                         <p>{badge.resource_provider_summary}</p>
                     </div>
                 </div>
-                <div className="col-lg-3 p-3">
-                    <div className="w-100 h-100 rounded-4 p-5 bg-light">
-                        <h3>Badge Status</h3>
-                        <ul>
-                            <li>Not Planned</li>
-                            <li>Planned</li>
-                            <li>Tasks Completed</li>
-                            <li>Verification Pending</li>
-                            <li>Verification Failed</li>
-                            <li>Verified</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
             <div className="row">
                 <h3>Pre-Requisite Badges</h3>
                 <div className="w-100 pb-3">
+                    {prerequisiteBadges && prerequisiteBadges.length === 0 &&
+                        <div className="w-100 p-3 text-center lead">
+                            No Prerequisites
+                        </div>}
                     {prerequisiteBadges && prerequisiteBadges.map((prerequisiteBadge, taskIndex) => {
                         return <div key={taskIndex} className="w-100 pt-2">
                             <div className="row resource_badge_prerequisite_card">
-                                <div className="col-lg-4 d-flex flex-row">
+                                <div className="col-lg-4 d-flex flex-row pt-3 pb-3">
                                     <div className="background-image-center-no-repeat"
                                          style={{backgroundImage: `url(${badge.graphic})`, width: 60, height: 60}}>
                                     </div>
-                                    <h4 className="col-lg-3 h-100 flex-fill ps-2 pe-2 pt-3 text-center">{prerequisiteBadge.name}</h4>
+                                    <h4 className="col-lg-3 h-100 flex-fill ps-2 pe-2 text-center">{prerequisiteBadge.name}</h4>
                                 </div>
                                 <p className="col-lg-5 h-100 pt-3 pb-2">{prerequisiteBadge.resource_provider_summary}</p>
                                 <div className="col-lg-3 h-100 pt-3">
-                                    <button className="w-100 btn btn-outline-dark btn-sm">
+                                    <Link
+                                        to={`/resources/${resource.cider_resource_id}/badges/${prerequisiteBadge.badge_id}`}
+                                        className="w-100 btn btn-outline-dark btn-sm">
                                         <i className="bi bi-box-arrow-up-right me-3"></i>
                                         View Badge Details
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +144,10 @@ export default function ResourceBadge() {
             <div className="row pt-4">
                 <h3>To-Do Tasks</h3>
                 <div className="w-100">
+                    {tasks && tasks.length === 0 &&
+                        <div className="w-100 p-3 text-center lead">
+                            No Tasks Available
+                        </div>}
                     {tasks && tasks.map((task, taskIndex) => {
                         const taskId = task.task_id;
 
@@ -202,7 +199,7 @@ export default function ResourceBadge() {
                                                       aria-hidden="true"></span>
                                 Loading...
                             </button>
-                        }  else if (!badge.status || badge.status === BadgeWorkflowStatus.NOT_PLANNED) {
+                        } else if (!badge.status || badge.status === BadgeWorkflowStatus.NOT_PLANNED) {
                             return <button className="w-100 btn btn-outline-dark"
                                            onClick={setBadgeActionStatusProcessing.bind(this, BadgeWorkflowStatus.PLANNED)}>
                                 <i className="bi bi-check-square me-3"></i>
@@ -214,7 +211,7 @@ export default function ResourceBadge() {
                                 <i className="bi bi-check-square me-3"></i>
                                 Submit for Verification
                             </button>
-                        }  else if (badge.status === BadgeWorkflowStatus.TASK_COMPLETED) {
+                        } else if (badge.status === BadgeWorkflowStatus.TASK_COMPLETED) {
                             return <button className="w-100 btn btn-outline-dark"
                                            onClick={setBadgeActionStatusProcessing.bind(this, BadgeWorkflowStatus.PLANNED)}>
                                 <i className="bi bi-check-square me-3"></i>

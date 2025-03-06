@@ -208,7 +208,8 @@ export const ResourcesProvider = ({children}) => {
     const getResourceBadgePrerequisites = ({resourceId, badgeId}) => {
         const badge = getBadge({badgeId});
         if (badge && badge.prerequisites) {
-            return _getBadgesWithWorkflow({resourceId, badgeIds: badge.prerequisites});
+            const badgeIds = badge.prerequisites.map(({prerequisite_badge_id}) => prerequisite_badge_id)
+            return _getBadgesWithWorkflow({resourceId, badgeIds: badgeIds});
         }
     }
 

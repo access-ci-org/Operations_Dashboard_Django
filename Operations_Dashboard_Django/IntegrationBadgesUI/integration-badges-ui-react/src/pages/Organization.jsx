@@ -28,7 +28,9 @@ export default function Organization() {
         getOrganizationResourceIds
     } = useResources();
     const {fetchBadges} = useBadges();
-    const [filterSelection, setFilterSelection] = useState({});
+
+    const [searchText, setSearchText] = useState("");
+    const [searchFilter, setSearchFilter] = useState({});
     const [resourceIds, setResourceIds] = useState([]);
 
     const organization = organizationMap[organizationId];
@@ -37,7 +39,7 @@ export default function Organization() {
         // fetchBadges();
         // fetchResources();
         fetchOrganization({organizationId});
-    }, []);
+    }, [organizationId]);
 
     useEffect(() => {
         if (organization && resources) {
@@ -60,10 +62,16 @@ export default function Organization() {
             for (let i = 0; i < resourceIds.length; i++) {
                 let resourceId = resourceIds[i];
                 let resource = getResource({resourceId})
+                let badges = getResourceBadges({resourceId: resource.cider_resource_id});
+
                 if (resource.roadmaps && resource.roadmaps.length > 0) {
-                    establishedResources.push(resource);
+                    if (hasSearchCriteria(organization, resource, badges, searchText)) {
+                        establishedResources.push(resource);
+                    }
                 } else if (resource.roadmaps) {
-                    inProgressResources.push(resource);
+                    if (hasSearchCriteria(organization, resource, badges, searchText)) {
+                        inProgressResources.push(resource);
+                    }
                 } else {
                     processing = true;
                 }
@@ -102,14 +110,14 @@ export default function Organization() {
                         </span>
                         <input type="text" className="form-control"
                                placeholder="Search Resource by Name, Type, ResourceBadge, etc"
-                               aria-label="Search keywords"/>
+                               aria-label="Search keywords" onChange={(e) => setSearchText(e.target.value)}/>
                     </div>
                 </div>
                 <div className="w-12">
                     Filters :
                     {filters.map((filter, filterIndex) => {
                         let badgeClassName = "badge rounded-pill";
-                        if (!filterSelection[filter]) {
+                        if (!searchFilter[filter]) {
                             badgeClassName += " bg-light text-dark";
                         } else {
                             badgeClassName += " text-light bg-dark";
@@ -193,4 +201,38 @@ function getResourceCard(organization, resource, badges) {
             View
         </Link>
     </div>
+}
+
+function hasSearchCriteria(organization, resource, badges, searchText) {
+    searchText = searchText.toLowerCase();
+
+    let answer = false;
+
+    if (resource) {
+        // Resource name
+        answer = answer || resource.resource_descriptive_name.toLowerCase().indexOf(searchText) >= 0;
+
+        console.log("      resource_descriptive_name - answer", [answer, resource.resource_descriptive_name])
+
+        // Resource Description
+        answer = answer || (resource.resource_description && resource.resource_description.toLowerCase().indexOf(searchText) >= 0);
+
+        console.log("      resource_description - answer", [answer, resource.resource_description])
+
+        // Resource type
+        answer = answer || resource.cider_type.toLowerCase().indexOf(searchText) >= 0;
+
+        console.log("      cider_type - answer", [answer, resource.cider_type])
+
+        if (badges) {
+
+            // Badges
+            answer = answer || badges.filter(badge => badge.name.toLowerCase().indexOf(searchText) >= 0).length > 0;
+
+            console.log("      badges - answer", [answer, badges])
+
+        }
+    }
+
+    return answer;
 }

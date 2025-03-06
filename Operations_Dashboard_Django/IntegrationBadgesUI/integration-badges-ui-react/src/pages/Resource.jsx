@@ -22,7 +22,7 @@ export default function Resource() {
         fetchResource({resourceId});
         // fetchOrganizations();
         // fetchBadges();
-    }, []);
+    }, [resourceId]);
 
     const resource = getResource({resourceId});
     let organization = getResourceOrganization({resourceId})

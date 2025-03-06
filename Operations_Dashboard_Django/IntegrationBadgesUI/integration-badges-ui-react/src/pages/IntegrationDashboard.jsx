@@ -1,5 +1,5 @@
 import {useOrganizations} from "../contexts/OrganizationsContext";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useResources} from "../contexts/ResourcesContext";
 import LoadingBlock from "../components/LoadingBlock";
@@ -13,17 +13,19 @@ export default function IntegrationDashboard() {
     const {resourceOrgMap, fetchResources} = useResources();
     const {organizations, fetchOrganizations} = useOrganizations();
 
+    const [searchText, setSearchText] = useState("");
+
     // useEffect(() => {
     //     fetchResources();
     //     fetchOrganizations();
     // }, [])
 
     const filteredOrganizations = organizations.filter(organization => {
-        return resourceOrgMap[organization.organization_name];
+        return resourceOrgMap[organization.organization_name] &&
+            organization.organization_name.toLowerCase().indexOf(searchText.toLowerCase()) >= 0;
     });
 
-    return (
-        <div className="container">
+    return (<div className="container">
             <div className="row">
                 <h1>Integration Dashboard</h1>
                 <p className="mt-3">
@@ -37,7 +39,7 @@ export default function IntegrationDashboard() {
             </div>
             <div className="row mt-2">
                 <input className="form-control" type="text" placeholder="Search Resource Provider by Institution"
-                       aria-label="default input example"/>
+                       aria-label="default input example" onChange={(e) => setSearchText(e.target.value)}/>
             </div>
 
             <div className="w-100 d-flex mt-5">
@@ -56,7 +58,8 @@ export default function IntegrationDashboard() {
                 </div>
             </div>
 
-            <LoadingBlock processing={!filteredOrganizations || filteredOrganizations.length === 0} className="pt-4 pb-5">
+            <LoadingBlock processing={!filteredOrganizations || filteredOrganizations.length === 0}
+                          className="pt-4 pb-5">
                 <div className="row mt-2 row-cols-4">
                     {filteredOrganizations && filteredOrganizations.map((organization, organizationIndex) => {
                         return <div key={organizationIndex} className="col p-3">
@@ -81,6 +84,5 @@ export default function IntegrationDashboard() {
                     })}
                 </div>
             </LoadingBlock>
-        </div>
-    );
+        </div>);
 }
