@@ -33,7 +33,7 @@ export const BadgeProvider = ({children}) => {
 
     const fetchBadges = async () => {
         try {
-            const response = await axios.get('/badge');
+            const response = await axios.get('/badges');
             const _badges = response.data.results;
             const _badgeMap = {};
             for (let i = 0; i < _badges.length; i++) {

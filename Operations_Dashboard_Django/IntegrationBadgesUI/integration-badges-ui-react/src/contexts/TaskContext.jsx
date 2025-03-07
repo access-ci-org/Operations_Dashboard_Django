@@ -29,7 +29,7 @@ export const TaskProvider = ({children}) => {
 
     const fetchTasks = async ({badgeId}) => {
         try {
-            const response = await axios.get(`/task/${badgeId}`);
+            const response = await axios.get(`/badge/${badgeId}/tasks`);
             const _tasks = response.data.results;
             const _taskMap = {}
             const _taskIds = [];
