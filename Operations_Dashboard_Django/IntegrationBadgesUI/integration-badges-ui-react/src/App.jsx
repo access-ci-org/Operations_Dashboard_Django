@@ -21,7 +21,7 @@ import {useEffect, useState} from "react";
 import LoadingBlock from "./components/LoadingBlock";
 
 // Setting the default baseURL
-axios.defaults.baseURL = process.env.REACT_APP_OPERATIONS_API_URL;
+axios.defaults.baseURL = import.meta.env.VITE_OPERATIONS_API_URL;
 
 const RouterLayout = () => {
     const {fetchOrganizations, organizations} = useOrganizations();

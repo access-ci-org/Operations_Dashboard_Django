@@ -212,25 +212,15 @@ function hasSearchCriteria(organization, resource, badges, searchText) {
         // Resource name
         answer = answer || resource.resource_descriptive_name.toLowerCase().indexOf(searchText) >= 0;
 
-        console.log("      resource_descriptive_name - answer", [answer, resource.resource_descriptive_name])
-
         // Resource Description
         answer = answer || (resource.resource_description && resource.resource_description.toLowerCase().indexOf(searchText) >= 0);
-
-        console.log("      resource_description - answer", [answer, resource.resource_description])
 
         // Resource type
         answer = answer || resource.cider_type.toLowerCase().indexOf(searchText) >= 0;
 
-        console.log("      cider_type - answer", [answer, resource.cider_type])
-
         if (badges) {
-
             // Badges
             answer = answer || badges.filter(badge => badge.name.toLowerCase().indexOf(searchText) >= 0).length > 0;
-
-            console.log("      badges - answer", [answer, badges])
-
         }
     }
 

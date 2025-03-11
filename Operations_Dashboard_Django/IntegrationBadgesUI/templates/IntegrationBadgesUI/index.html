@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>Integration Dashboard</title>
     <meta charset="utf-8"/>
     <link href="{% static 'integration-badges-ui-react/favicon.ico' %}" rel="icon"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -12,12 +13,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
           rel="stylesheet">
-    <script src="https://operations.access-ci.org/themes/contrib/bootstrap5/dist/bootstrap/5.3.3/dist/js/bootstrap.bundle.js?v=5.3.3"></script>
+
     <script>window.SETTINGS = {PUBLIC_URL: "/IntegrationBadgesUI"}</script>
-    <link href="{% static 'integration-badges-ui-react/manifest.json' %}" rel="manifest"/>
-    <title>React App</title>
-    <script defer="defer" src="{% static 'integration-badges-ui-react/js/main.js' %}"></script>
-    <link href="{% static 'integration-badges-ui-react/css/main.css' %}" rel="stylesheet"/>
+
+
+    <link href="{% static 'integration-badges-ui-react/.vite/manifest.json' %}" rel="manifest"/>
+
+
+    <script defer="defer" src="{% static main_js %}"></script>
+    <link href="{% static main_css %}" rel="stylesheet"/>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -27,102 +31,103 @@
 <div id="header"></div>
 <div id="site-menus"></div>
 <div id="main" class="">
-  <div id="body">
-    <div id="Operations_WebApp_IntegrationBadges"></div>
-  </div>
-{#  <div id="table-of-contents"></div>#}
+    <div id="body">
+        <div id="Operations_WebApp_IntegrationBadges"></div>
+    </div>
+    {#  <div id="table-of-contents"></div>#}
 </div>
 <div id="footer-menus"></div>
 <div id="footer"></div>
 <script type="module">
 
-  import {
-    footer,
-    footerMenus,
-    header,
-    siteMenus,
-    tableOfContents,
-    universalMenuItems,
-    universalMenus,
-  } from "https://esm.sh/@access-ci/ui@0.3.1";
+    import {
+        footer,
+        footerMenus,
+        header,
+        siteMenus,
+        tableOfContents,
+        universalMenuItems,
+        universalMenus,
+    } from "https://esm.sh/@access-ci/ui@0.3.1";
 
-  const siteItems = [
-    {
-      name: "Focus Areas",
-      items: [
+    const siteItems = [
         {
-          name: "Cybersecurity",
-          href: "/pub/cybersecurity",
+            name: "Focus Areas",
+            items: [
+                {
+                    name: "Cybersecurity",
+                    href: "/pub/cybersecurity",
+                },
+                {
+                    name: "Networking & Data Transfer",
+                    href: "/pub/data_n_networking",
+                },
+                {
+                    name: "Operational Support",
+                    href: "/pub/operational_support",
+                },
+                {
+                    name: "Student Training & Engagement Program",
+                    href: "/step",
+                },
+            ],
         },
         {
-          name: "Networking & Data Transfer",
-          href: "/pub/data_n_networking",
+            name: "Infrastructure",
+            items: [
+                {
+                    name: "Existing Infrastructure",
+                    href: "/resources/access-allocated",
+                },
+                {
+                    name: "New Infrastructure",
+                    href: "/pub/access-infrastructure-integration",
+                },
+            ],
         },
         {
-          name: "Operational Support",
-          href: "/pub/operational_support",
+            name: "FAQs",
+            href: "/faqs",
         },
         {
-          name: "Student Training & Engagement Program",
-          href: "/step",
+            name: "Help",
+            href: "/help",
         },
-      ],
-    },
-    {
-      name: "Infrastructure",
-      items: [
-        {
-          name: "Existing Infrastructure",
-          href: "/resources/access-allocated",
-        },
-        {
-          name: "New Infrastructure",
-          href: "/pub/access-infrastructure-integration",
-        },
-      ],
-    },
-    {
-      name: "FAQs",
-      href: "/faqs",
-    },
-    {
-      name: "Help",
-      href: "/help",
-    },
-  ];
+    ];
 
-  universalMenus({
-    isLoggedIn: document.cookie.split("; ").includes("SESSaccesscisso=Operations"),
-    loginUrl: "/login",
-    logoutUrl: "/logout",
-    siteName: "Operations",
-    target: document.getElementById("universal-menus"),
-  });
+    universalMenus({
+        isLoggedIn: document.cookie.split("; ").includes("SESSaccesscisso=Operations"),
+        loginUrl: "/login",
+        logoutUrl: "/logout",
+        siteName: "Operations",
+        target: document.getElementById("universal-menus"),
+    });
 
-  header({
-    siteName: "Operations",
-    target: document.getElementById("header"),
-  });
+    header({
+        siteName: "Operations",
+        target: document.getElementById("header"),
+    });
 
-  siteMenus({
-    items: siteItems,
-    siteName: "Operations",
-    target: document.getElementById("site-menus"),
-  });
+    siteMenus({
+        items: siteItems,
+        siteName: "Operations",
+        target: document.getElementById("site-menus"),
+    });
 
-  {#tableOfContents({#}
-  {#  headings: document.querySelectorAll("#body h1, #body h2"),#}
-  {#  target: document.getElementById("table-of-contents"),#}
-  {#});#}
+    {#tableOfContents({#}
+    {#  headings: document.querySelectorAll("#body h1, #body h2"),#}
+    {#  target: document.getElementById("table-of-contents"),#}
+    {#})
+        ;
+        #}
 
-  footerMenus({
-    items: siteItems,
-    target: document.getElementById("footer-menus"),
-  });
+        footerMenus({
+            items: siteItems,
+            target: document.getElementById("footer-menus"),
+        });
 
-  footer({ target: document.getElementById("footer") });
+        footer({target: document.getElementById("footer")});
 </script>
-
 
 
 </body>

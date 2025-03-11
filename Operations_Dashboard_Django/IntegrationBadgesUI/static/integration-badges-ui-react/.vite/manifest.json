@@ -1,0 +1,48 @@
+{
+  "index.html": {
+    "file": "assets/index-DNGDXj88.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "assets/index-CgSJlIW9.css"
+    ],
+    "assets": [
+      "assets/roadmaps-banner-CFtgnNzI.jpeg",
+      "assets/integration_icon_compute-BZeek-Cn.png",
+      "assets/integration_icon_storage-C_FGifr3.png",
+      "assets/integration_icon_cloud-BknBZEo8.png",
+      "assets/integration_icon_science_gateways-Csj0Yhlv.png",
+      "assets/bootstrap-icons-BtvjY1KL.woff2",
+      "assets/bootstrap-icons-BOrJxbIo.woff"
+    ]
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-BOrJxbIo.woff",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-BtvjY1KL.woff2",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
+  },
+  "src/assets/integration_icon_cloud.png": {
+    "file": "assets/integration_icon_cloud-BknBZEo8.png",
+    "src": "src/assets/integration_icon_cloud.png"
+  },
+  "src/assets/integration_icon_compute.png": {
+    "file": "assets/integration_icon_compute-BZeek-Cn.png",
+    "src": "src/assets/integration_icon_compute.png"
+  },
+  "src/assets/integration_icon_science_gateways.png": {
+    "file": "assets/integration_icon_science_gateways-Csj0Yhlv.png",
+    "src": "src/assets/integration_icon_science_gateways.png"
+  },
+  "src/assets/integration_icon_storage.png": {
+    "file": "assets/integration_icon_storage-C_FGifr3.png",
+    "src": "src/assets/integration_icon_storage.png"
+  },
+  "src/assets/roadmaps-banner.jpeg": {
+    "file": "assets/roadmaps-banner-CFtgnNzI.jpeg",
+    "src": "src/assets/roadmaps-banner.jpeg"
+  }
+}

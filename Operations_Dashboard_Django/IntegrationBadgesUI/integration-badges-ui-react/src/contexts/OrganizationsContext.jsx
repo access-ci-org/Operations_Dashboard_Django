@@ -23,7 +23,7 @@ export const OrganizationsProvider = ({children}) => {
 
     const fetchOrganization = async ({organizationId}) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_ORGANIZATION_API_URL}organizations/organization_id/${organizationId}`);
+            const response = await axios.get(`${import.meta.env.VITE_ORGANIZATION_API_URL}organizations/organization_id/${organizationId}`);
             const organization = response.data.results;
             setOrganizationMap({
                 ...organizationMap, [organizationId]: organization
@@ -46,7 +46,7 @@ export const OrganizationsProvider = ({children}) => {
     };
     const fetchOrganizations = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_ORGANIZATION_API_URL}organizations/`);
+            const response = await axios.get(`${import.meta.env.VITE_ORGANIZATION_API_URL}organizations/`);
             const _organizations = response.data.results;
             setOrganizations(_organizations);
 
