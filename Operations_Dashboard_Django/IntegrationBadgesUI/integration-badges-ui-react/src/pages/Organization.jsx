@@ -130,6 +130,10 @@ export default function Organization() {
                     <LoadingBlock processing={processing} className="pt-4 pb-5">
                         <div className="col-12 pt-4">
                             <h2>In Progress</h2>
+                            {inProgressResources && inProgressResources.length === 0 &&
+                                <div className="w-100 p-3 text-center lead">
+                                    There are no resource waiting to be integrated
+                                </div>}
                             <div className="w-100 row row-cols-3">
                                 {inProgressResources.map((resource, resourceIndex) => {
                                     let badges = getResourceBadges({resourceId: resource.cider_resource_id});
@@ -143,6 +147,10 @@ export default function Organization() {
                         <div className="col-12 pt-4">
                             <h2>Current Integrations</h2>
 
+                            {inProgressResources && inProgressResources.length === 0 &&
+                                <div className="w-100 p-3 text-center lead">
+                                    There are no resource integrated
+                                </div>}
                             <div className="w-100 row row-cols-3">
                                 {establishedResources.map((resource, resourceIndex) => {
                                     let badges = getResourceBadges({resourceId: resource.cider_resource_id});
