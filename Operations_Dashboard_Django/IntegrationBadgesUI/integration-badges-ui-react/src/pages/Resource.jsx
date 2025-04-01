@@ -91,7 +91,7 @@ export default function Resource() {
             </div>
             <div className="w-100 pt-3 pb-3">
                 <p>{resource.resource_description}</p>
-                <Link to={resource.user_guide_url} className="btn btn-dark">View User Guide</Link>
+                {/*<Link to={resource.user_guide_url} className="btn btn-dark">View User Guide</Link>*/}
             </div>
             <div className=" w-100 pt-5 pb-5 text-medium lead fst-italic fs-3">
                 Review the list of badges waiting for completion and start completing tasks to earn badges and track
@@ -150,8 +150,8 @@ function getBadgeCard(organization, resource, badge, t) {
     if (organization && resource && badge) {
         return <div className="w-100 badge-card p-2">
             <div className="w-100 p-1 badge-card-header">
-                <div className="badge-card-header-thumbnail">
-                    <div className="badge-card-header-icon"
+                <div className="w-100 badge-card-header-thumbnail">
+                    <div className="w-100 background-image-center-no-repeat badge-icon-small"
                          style={{backgroundImage: `url(${badge.graphic})`}}>
                     </div>
                 </div>

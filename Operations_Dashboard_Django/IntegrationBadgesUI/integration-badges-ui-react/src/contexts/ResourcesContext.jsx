@@ -34,6 +34,8 @@ const ResourcesContext = createContext({
     setResourceBadgeWorkflowStatus: ({resourceId, badgeId, status}) => {
     },
     setResourceBadgeTaskWorkflowStatus: ({resourceId, badgeId, taskId, status}) => {
+    },
+    setResource: ({resourceId, roadmapIds, badgeIds}) => {
     }
 });
 
@@ -307,6 +309,22 @@ export const ResourcesProvider = ({children}) => {
         }
     }
 
+    const setResource = async ({resourceId, roadmapIds, badgeIds}) => {
+        try {
+            const response = await axios.post(
+                `/resource/${resourceId}/`,
+                {
+                    roadmap_ids: roadmapIds,
+                    badge_ids: badgeIds
+                }
+            );
+
+            return response.data.results;
+        } catch (error) {
+            return error;
+        }
+    }
+
     return (
         <ResourcesContext.Provider
             value={{
@@ -326,7 +344,8 @@ export const ResourcesProvider = ({children}) => {
                 getResourceOrganization,
                 getOrganizationResourceIds,
                 setResourceBadgeWorkflowStatus,
-                setResourceBadgeTaskWorkflowStatus
+                setResourceBadgeTaskWorkflowStatus,
+                setResource
             }}>
             {children}
         </ResourcesContext.Provider>

@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import {useResources} from "../contexts/ResourcesContext";
 import {useBadges} from "../contexts/BadgeContext";
 import {useOrganizations} from "../contexts/OrganizationsContext";
+import LoadingBlock from "./LoadingBlock.jsx";
 
 const defaultLinkProps = {className: "btn btn-link text-medium"}
 
@@ -35,7 +36,7 @@ function CustomizedBreadcrumb() {
                     to: `/organizations/${pathSegments[2]}`
                 }}
             >
-                {organization ? organization.organization_name : pathSegments[2]}
+                {organization ? organization.organization_name : <LoadingBlock processing={true}/>}
             </Breadcrumb.Item>)
         }
     }
@@ -71,7 +72,7 @@ function CustomizedBreadcrumb() {
                     to: `/resources/${pathSegments[2]}`
                 }}
             >
-                {resource ? resource.resource_descriptive_name : pathSegments[2]}
+                {resource ? resource.resource_descriptive_name : <LoadingBlock processing={true}/>}
             </Breadcrumb.Item>)
         }
     }

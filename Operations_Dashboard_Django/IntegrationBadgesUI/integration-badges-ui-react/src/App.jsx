@@ -19,6 +19,8 @@ import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
 import {useEffect, useState} from "react";
 import LoadingBlock from "./components/LoadingBlock";
+import ResourceEdit from "./pages/ResourceEdit.jsx";
+import {RoadmapProvider} from "./contexts/RoadmapContext.jsx";
 
 // Setting the default baseURL
 axios.defaults.baseURL = import.meta.env.VITE_OPERATIONS_API_URL;
@@ -51,34 +53,39 @@ function App() {
 
     return (
         <OrganizationsProvider>
-            <TaskProvider>
-                <BadgeProvider>
-                    <ResourcesProvider>
-                        <I18nextProvider i18n={i18n}>
-                            <div className="w-100 pt-3">
-                                <div className="w-100">
-                                    <BrowserRouter basename={window.SETTINGS.PUBLIC_URL}>
-                                        <Routes>
-                                            <Route path="/" element={<RouterLayout/>}>
-                                                <Route index element={<Home/>}/>
-                                                <Route path="/organizations" element={<IntegrationDashboard/>}/>
-                                                <Route path="/organizations/:organizationId" element={<Organization/>}/>
-                                                <Route path="/organizations/new" element={<NewResource/>}/>
+            <RoadmapProvider>
+                <TaskProvider>
+                    <BadgeProvider>
+                        <ResourcesProvider>
+                            <I18nextProvider i18n={i18n}>
+                                <div className="w-100 pt-3">
+                                    <div className="w-100">
+                                        <BrowserRouter basename={window.SETTINGS.PUBLIC_URL}>
+                                            <Routes>
+                                                <Route path="/" element={<RouterLayout/>}>
+                                                    <Route index element={<Home/>}/>
+                                                    <Route path="/organizations" element={<IntegrationDashboard/>}/>
+                                                    <Route path="/organizations/:organizationId"
+                                                           element={<Organization/>}/>
+                                                    <Route path="/organizations/new" element={<NewResource/>}/>
 
 
-                                                <Route path="/resources/:resourceId" element={<Resource/>}/>
-                                                <Route path="/resources/:resourceId/badges/:badgeId"
-                                                       element={<ResourceBadge/>}/>
+                                                    <Route path="/resources/:resourceId" element={<Resource/>}/>
+                                                    <Route path="/resources/:resourceId/edit"
+                                                           element={<ResourceEdit/>}/>
+                                                    <Route path="/resources/:resourceId/badges/:badgeId"
+                                                           element={<ResourceBadge/>}/>
 
-                                            </Route>
-                                        </Routes>
-                                    </BrowserRouter>
+                                                </Route>
+                                            </Routes>
+                                        </BrowserRouter>
+                                    </div>
                                 </div>
-                            </div>
-                        </I18nextProvider>
-                    </ResourcesProvider>
-                </BadgeProvider>
-            </TaskProvider>
+                            </I18nextProvider>
+                        </ResourcesProvider>
+                    </BadgeProvider>
+                </TaskProvider>
+            </RoadmapProvider>
         </OrganizationsProvider>
     );
 }

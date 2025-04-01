@@ -68,7 +68,7 @@ export default function Home() {
     return <div className="w-100">
         <div className="container">
             <div className="row">
-                <div className="col-lg-9 col-md-8">
+                <div className="col-sm-9 col-md-8">
                     <div className="row"><h1>For Resource Providers</h1>
                         <p>
                             Resource Providers (RPs) are at the center of ACCESS, making research possible for the
