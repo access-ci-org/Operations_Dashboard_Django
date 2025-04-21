@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.cilogon',
     'django_bootstrap5',
+    'badgetoken',
     #'bootstrap5',
     # 'django_extensions',
 ]
@@ -87,7 +88,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/cilogon/login/'
 LOGIN_URL = '/accounts/cilogon/login/'
 LOGIN_REDIRECT_URL = '/dashboard/login'
 #SOCIALACCOUNT_ADAPTER = 'dashboard.views.MySocialAccountAdapter'
-#SOCIALACCOUNT_STORE_TOKENS = True
+SOCIALACCOUNT_STORE_TOKENS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
