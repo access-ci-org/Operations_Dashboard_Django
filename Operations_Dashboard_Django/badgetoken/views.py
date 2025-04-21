@@ -6,7 +6,7 @@ from rest_framework import permissions, status
 from rest_framework.generics import GenericAPIView
 from django.db import transaction
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseServerError,JsonResponse
 from django.db.models import Q
 
 import allauth
@@ -20,10 +20,7 @@ import datetime
 from requests_oauth2client import OAuth2Client, ClientSecretBasic, OAuth2AccessTokenAuth, requests
 from django.conf import settings
 
-from warehouse_tools.exceptions import MyAPIException
-from warehouse_tools.responses import MyAPIResponse
 
-from drf_spectacular.utils import extend_schema, OpenApiParameter
 import logging
 
 log = logging.getLogger(__name__)
@@ -47,7 +44,7 @@ def get_updated_token(social_token):
             newtoken = client.refresh_token(social_token.token_secret, scope="openid email profile org.cilogon.userinfo offline_access")
             #print(f"refreshed token: {newtoken.access_token}")
             #newtoken_details = client.introspect_token(newtoken)
-        except exception as e:
+        except Exception as e:
             print(f"CILogon exception: {e}")
         #defaults = {
         #    'token': newtoken.access_token,
@@ -78,7 +75,7 @@ class Badge_Token_v1(GenericAPIView):
             social_token = SocialToken.objects.get(account=social_account.id)
             #print(f"social token dict: {social_token.__dict__}")
             token_dict = get_updated_token(social_token)
-        except exception as e:
-            return HttpResponseServerError(e)
-        return MyAPIResponse(token_dict)
+        except Exception as e:
+            return HttpResponseServerError(str(e))
+        return JsonResponse(token_dict)
 
