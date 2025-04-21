@@ -30,5 +30,6 @@ urlpatterns = [
     path('badgetoken/', include('badgetoken.urls') ),
     path('favicon.ico', views.favicon),
 #    path('', RedirectView.as_view(url=django_settings.LOGIN_URL) )
-    path('', RedirectView.as_view(url='IntegrationBadgesUI') )
+    path('', RedirectView.as_view(url='IntegrationBadgesUI') ),
+    path('login/', RedirectView.as_view(url='/accounts/cilogon/login') )
 ]
