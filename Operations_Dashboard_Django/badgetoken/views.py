@@ -6,7 +6,7 @@ from rest_framework import permissions, status
 from rest_framework.generics import GenericAPIView
 from django.db import transaction
 from django.utils import timezone
-from django.http import HttpResponse,HttpResponseServerError,JsonResponse
+from django.http import HttpResponse,HttpResponseServerError,HttpResponseForbidden,JsonResponse
 from django.db.models import Q
 
 import allauth
@@ -51,10 +51,14 @@ def get_updated_token(social_token):
         #    'token_secret': newtoken.refresh_token,
         #    'expires_at': newtoken.expires_at,
         #}
-        social_token.token = newtoken.access_token
-        social_token.token_secret = newtoken.refresh_token
-        social_token.expires_at = newtoken.expires_at
-        social_token.save()
+        if not newtoken:
+            #token must not have been able to be refreshed
+            return HttpResponseForbidden("Token could not be renewed; login again")
+        else:
+            social_token.token = newtoken.access_token
+            social_token.token_secret = newtoken.refresh_token
+            social_token.expires_at = newtoken.expires_at
+            social_token.save()
 
     token_dict = {'token': social_token.token, 'refresh_token': social_token.token_secret, 'expires_at': social_token.expires_at}
     return token_dict
