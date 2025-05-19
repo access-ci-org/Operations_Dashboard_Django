@@ -90,6 +90,9 @@ LOGIN_REDIRECT_URL = '/dashboard/login'
 #SOCIALACCOUNT_ADAPTER = 'dashboard.views.MySocialAccountAdapter'
 SOCIALACCOUNT_STORE_TOKENS = True
 
+#SESSION COOKIE needs to be readable by the IntegrationBadgesUI webapp
+SESSION_COOKIE_HTTPONLY = False
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
