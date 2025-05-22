@@ -1,3 +1,7 @@
+v0.16.0 2025-05-22 JP
+  - Redirect home page to /dashboard
+  - Use correct naming in the RP Integration Dashboard card
+
 v0.1.0 2024-11-28 JP
   - Borrowed from ServiceIndex to setup the Dashboard Django project
   - Remove ServiceIndex models, views, serializers, keep only the headers, footers, login/logout
