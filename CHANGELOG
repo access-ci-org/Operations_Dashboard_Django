@@ -1,3 +1,6 @@
+v0.16.1 2025-05-22 EBB
+  - Fix internal server error for badgetoken when refresh token can not be
+    renewed
 v0.16.0 2025-05-22 JP
   - Redirect home page to /dashboard
   - Use correct naming in the RP Integration Dashboard card

@@ -7,6 +7,7 @@ from rest_framework.generics import GenericAPIView
 from django.db import transaction
 from django.utils import timezone
 from django.http import HttpResponse,HttpResponseServerError,HttpResponseForbidden,JsonResponse
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 
 import allauth
@@ -51,9 +52,11 @@ def get_updated_token(social_token):
         #    'token_secret': newtoken.refresh_token,
         #    'expires_at': newtoken.expires_at,
         #}
-        if not newtoken:
+        try:
+            newtoken
+        except NameError:
             #token must not have been able to be refreshed
-            return HttpResponseForbidden("Token could not be renewed; login again")
+            raise PermissionDenied("Token could not be renewed; login again")
         else:
             social_token.token = newtoken.access_token
             social_token.token_secret = newtoken.refresh_token
@@ -79,6 +82,8 @@ class Badge_Token_v1(GenericAPIView):
             social_token = SocialToken.objects.get(account=social_account.id)
             #print(f"social token dict: {social_token.__dict__}")
             token_dict = get_updated_token(social_token)
+        except PermissionDenied as e:
+            return HttpResponseForbidden(str(e))
         except Exception as e:
             return HttpResponseServerError(str(e))
         return JsonResponse(token_dict)
