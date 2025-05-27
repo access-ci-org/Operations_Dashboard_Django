@@ -24,8 +24,9 @@ from . import views
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
-    path('dashboard/', include('dashboard.urls', namespace="dashboard")),
-    path('integration/', include('integration.urls', namespace="integration")),
+    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+    path('dashapp/', include('dashapp.urls', namespace='dashapp')),
+    path('dbfile/', include('dbfile.urls', namespace='dbfile')),
     path('IntegrationBadgesUI/', include('IntegrationBadgesUI.urls')),
     path('badgetoken/', include('badgetoken.urls') ),
     path('favicon.ico', views.favicon),

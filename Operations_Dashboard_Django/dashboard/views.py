@@ -1,4 +1,3 @@
-from django.core.serializers import serialize
 from django.shortcuts import render, redirect
 from django.forms.formsets import formset_factory
 from django.forms import modelformset_factory
@@ -15,10 +14,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf import settings
 
 from dashboard.models import *
-from dashboard.serializers import *
 import dashboard.signals
 
-import collections
 import json
 import logging
 logger = logging.getLogger(__name__)

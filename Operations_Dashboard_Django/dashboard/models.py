@@ -7,6 +7,5 @@ from django.utils.safestring import mark_safe
 class PathCode(models.Model):
     path = models.CharField(primary_key=True, max_length=64)
     code = models.TextField(max_length=4096)
-
     def __str__(self):
        return str(self.path)

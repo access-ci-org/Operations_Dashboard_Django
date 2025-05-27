@@ -1,0 +1,121 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{{ name }}</title>
+        <meta charset="utf-8"/>
+        <link href="{% static 'integration-badges-ui-react/favicon.ico' %}" rel="icon"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        <meta name="theme-color" content="#000000"/>
+        <meta name="description" content="Web site created using create-react-app"/>
+        <link href="{% static 'integration-badges-ui-react/logo192.ico' %}" rel="icon"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+                rel="stylesheet"/>
+
+        {{ code.IntegrationBadgesUI_header_1_0_0 }}
+
+    </head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+
+<div id="universal-menus"></div>
+<div id="header"></div>
+<div id="site-menus"></div>
+<div id="main" class="">
+    <div id="body">
+        <div id="Operations_WebApp_IntegrationBadges"></div>
+    </div>
+    {#  <div id="table-of-contents"></div>#}
+</div>
+<div id="footer-menus"></div>
+<div id="footer"></div>
+<script type="module">
+
+    import {
+        footer,
+        footerMenus,
+        header,
+        siteMenus,
+        tableOfContents,
+        universalMenuItems,
+        universalMenus,
+    } from "https://esm.sh/@access-ci/ui@0.8.0";
+
+    const siteItems = [
+        {
+            name: "Focus Areas",
+            items: [
+                {
+                    name: "Cybersecurity",
+                    href: "/pub/cybersecurity",
+                },
+                {
+                    name: "Networking & Data Transfer",
+                    href: "/pub/data_n_networking",
+                },
+                {
+                    name: "Operational Support",
+                    href: "/pub/operational_support",
+                },
+                {
+                    name: "Student Training & Engagement Program",
+                    href: "/step",
+                },
+            ],
+        },
+        {
+            name: "Infrastructure",
+            items: [
+                {
+                    name: "Existing Infrastructure",
+                    href: "/resources/access-allocated",
+                },
+                {
+                    name: "New Infrastructure",
+                    href: "/pub/access-infrastructure-integration",
+                },
+            ],
+        },
+        {
+            name: "FAQs",
+            href: "/faqs",
+        },
+        {
+            name: "Help",
+            href: "/help",
+        },
+    ];
+
+    universalMenus({
+        isLoggedIn: document.cookie.split("; ").includes("sessionid"),
+        loginUrl: "/login",
+        logoutUrl: "/accounts/logout",
+        siteName: "Operations",
+        target: document.getElementById("universal-menus"),
+    });
+
+    header({
+        siteName: "Operations",
+        target: document.getElementById("header"),
+    });
+
+    siteMenus({
+        items: siteItems,
+        siteName: "Operations",
+        target: document.getElementById("site-menus"),
+    });
+
+
+    footerMenus({
+        items: siteItems,
+        target: document.getElementById("footer-menus"),
+    });
+
+    footer({target: document.getElementById("footer")});
+</script>
+
+
+</body>
+</html>

@@ -53,19 +53,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'dashboard',
-    'integration',
-    'IntegrationBadgesUI',
+    'django_bootstrap5',
     # For django-allauth
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.cilogon',
-    'django_bootstrap5',
+    # Our Apps
+    'dashboard',
+    'dashapp',
+    'dbfile',
     'badgetoken',
-    #'bootstrap5',
-    # 'django_extensions',
+    'IntegrationBadgesUI',
 ]
 
 SITE_ID = 1
