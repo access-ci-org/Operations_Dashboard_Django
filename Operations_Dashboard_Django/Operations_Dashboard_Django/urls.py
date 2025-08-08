@@ -20,11 +20,13 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from allauth.socialaccount.providers.oauth2.views import OAuth2LoginView
 from . import views
+from access_django_user_admin import views
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+    path('access_django_user_admin/', include('access_django_user_admin.urls', namespace="access_django_user_admin")),
     path('dashapp/', include('dashapp.urls', namespace='dashapp')),
     path('dbfile/', include('dbfile.urls', namespace='dbfile')),
     path('IntegrationBadgesUI/', include('IntegrationBadgesUI.urls')),
