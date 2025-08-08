@@ -1,3 +1,6 @@
+v.18.0 2025-08-08 jlambertson
+  - Added access_django_user_admin app for managing user accesss and permissions
+
 v0.17.0 2025-05-27 JP
   - New dbfile/ App extracted from Operations_Warehouse_Django/integration_badges/
   - New dashapp/ App implements Django model based Dashboard application definition

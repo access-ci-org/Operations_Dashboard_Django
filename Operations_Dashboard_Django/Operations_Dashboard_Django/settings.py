@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.cilogon',
     # Our Apps
     'dashboard',
+    'access_django_user_admin',
     'dashapp',
     'dbfile',
     'badgetoken',
@@ -137,7 +138,7 @@ ROOT_URLCONF = 'Operations_Dashboard_Django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ os.path.normpath(os.path.join(os.path.dirname(__file__), '../templates'))],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,6 +146,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.template'
                 '.context_processors.request',
+                'dashboard.context_processors.app_context_processor',
+                
 #                'django.template.context_processors.debug',
 # Add if needed by Dinuka's badges
 #                'django.template.context_processors.i18n',
