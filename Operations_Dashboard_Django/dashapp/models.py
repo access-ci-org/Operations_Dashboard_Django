@@ -6,9 +6,9 @@ from dbfile.models import *
 
 class DashApp(models.Model):
     app_id = models.AutoField(primary_key=True)
-    path = models.CharField(max_length=80, unique=True, null=False, blank=False,\
+    path = models.CharField(db_index=True, max_length=80, unique=True, null=False, blank=False,\
         help_text='Application relative URL - APP_BASENAME')
-    name = models.CharField(db_index=True, max_length=40, unique=True, null=False, blank=False,\
+    name = models.CharField(max_length=40, null=False, blank=False,\
         help_text='Application Display Name')
     template = models.CharField(max_length=80, null=False, blank=False,\
         help_text='Django template path')
@@ -23,6 +23,8 @@ class AppCode(models.Model):
     code_id = models.AutoField(primary_key=True)
     name = models.CharField(db_index=True, max_length=40, unique=True, null=False, blank=False,\
         help_text='May only contain alphanumeric and underscore, not start with an underscore, and not be a number')
+    alias = models.CharField(max_length=40, null=True, blank=True,\
+        help_text='May only contain alphanumeric and underscore, not start with an underscore, and not be a number')        
     code = models.TextField(null=False, blank=False)
     def __str__(self):
        return str(self.name)

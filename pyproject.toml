@@ -1,0 +1,18 @@
+[project]
+name = "Operations_Dashboard_Django"
+version = "0.17.0"
+description = "ACCESS Operations (CONECT) Dashboard Django Interface"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "django==5.0.*",
+    "django-allauth==0.51.*",
+    "django-bootstrap5==24.*",
+    "djangorestframework",
+    "psycopg2-binary",
+    "Pillow",
+    "requests",
+    "requests-oauth2client",
+    "gunicorn==22.*",
+    "access-django-user-admin==1.4.4",
+]

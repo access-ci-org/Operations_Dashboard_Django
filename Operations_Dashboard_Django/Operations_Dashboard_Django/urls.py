@@ -28,6 +28,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
     path('access_django_user_admin/', include('access_django_user_admin.urls', namespace="access_django_user_admin")),
     path('dashapp/', include('dashapp.urls', namespace='dashapp')),
+    path('dashview/', include('dashapp.urls', namespace='dashview')),
     path('dbfile/', include('dbfile.urls', namespace='dbfile')),
     path('IntegrationBadgesUI/', include('IntegrationBadgesUI.urls')),
     path('badgetoken/', include('badgetoken.urls') ),
