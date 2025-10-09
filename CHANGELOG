@@ -1,4 +1,13 @@
-v.18.0 2025-08-08 jlambertson
+v0.19.0 2025-10-09 JP
+  - Introduce dashapp alias field
+  - Implement AppCode alias substitution and pass both appcode + alias to the template renderer
+  - DashApp templates for App cards, View list, and redirect
+  - Place three Apps on the landing page: legacy webapp, apps page, views page (TODO: convert landing to DashApp)
+  - Define OPERATIONS_INTEGRATION_BADGES_WEBAPP_VERSION in settings.py for legacy hosted IntegrationBadgesUI
+  - Add .vscode to .gitignore
+  - New pyproject.toml so developers can experiment with uv in their dev environments
+
+v0.18.0 2025-08-08 jlambertson
   - Added access_django_user_admin app for managing user accesss and permissions
 
 v0.17.0 2025-05-27 JP
