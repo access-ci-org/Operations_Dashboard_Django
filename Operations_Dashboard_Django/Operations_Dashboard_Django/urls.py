@@ -36,5 +36,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/dashboard') ),
 #    path('', RedirectView.as_view(url=django_settings.LOGIN_URL) )
 #    path('', RedirectView.as_view(url='IntegrationBadgesUI') ),
-    path('login/', RedirectView.as_view(url='/accounts/cilogon/login') )
+    path('login/', RedirectView.as_view(url='/accounts/cilogon/login', query_string=True) )
 ]
