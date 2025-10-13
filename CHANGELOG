@@ -1,3 +1,5 @@
+v0.19.1 2025-10-09 EBB
+  - Fixed login redirect to correctly follow next= query parameter
 v0.19.0 2025-10-09 JP
   - Introduce dashapp alias field
   - Implement AppCode alias substitution and pass both appcode + alias to the template renderer
