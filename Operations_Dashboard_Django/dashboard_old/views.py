@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf import settings
 
 from dashboard.models import *
-import dashboard.signals
+import dashboard_tools.signals
 
 import json
 import logging

@@ -31,6 +31,7 @@ class DashAppCode_Admin(admin.ModelAdmin):
     list_display_links = ['id']
     ordering = ['dashapp', 'appcode']
     search_fields = ['dashapp', 'appcode']
+    save_as = True
     def get_appcode_alias(self, obj):
         return obj.appcode.alias
     get_appcode_alias

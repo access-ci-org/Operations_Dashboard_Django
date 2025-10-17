@@ -250,8 +250,8 @@ td.outlined {
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('/static/dashboard/fonts/glyphicons-halflings-regular.eot');
-    src: url('/static/dashboard/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/static/dashboard/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/static/dashboard/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/static/dashboard/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg')
+    src: url('/static/fonts/glyphicons-halflings-regular.eot');
+    src: url('/static/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/static/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/static/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/static/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg')
 }
 
 .glyphicon {

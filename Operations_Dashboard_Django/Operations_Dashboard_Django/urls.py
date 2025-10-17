@@ -19,22 +19,19 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import include, path
 from django.views.generic import RedirectView
 from allauth.socialaccount.providers.oauth2.views import OAuth2LoginView
-from . import views
 from access_django_user_admin import views
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/dashboard/') ),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
-    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
-    path('access_django_user_admin/', include('access_django_user_admin.urls', namespace="access_django_user_admin")),
+    # These 3 paths all use the same dashapp application
     path('dashapp/', include('dashapp.urls', namespace='dashapp')),
+    path('dashboard/', include('dashapp.urls', namespace='dashboard')),
     path('dashview/', include('dashapp.urls', namespace='dashview')),
     path('dbfile/', include('dbfile.urls', namespace='dbfile')),
-    path('IntegrationBadgesUI/', include('IntegrationBadgesUI.urls')),
     path('badgetoken/', include('badgetoken.urls') ),
-    path('favicon.ico', views.favicon),
-    path('', RedirectView.as_view(url='/dashboard') ),
-#    path('', RedirectView.as_view(url=django_settings.LOGIN_URL) )
-#    path('', RedirectView.as_view(url='IntegrationBadgesUI') ),
+    path('access_django_user_admin/', include('access_django_user_admin.urls', namespace='access_django_user_admin')),
+    path('web', include('web.urls', namespace='web')),
     path('login/', RedirectView.as_view(url='/accounts/cilogon/login', query_string=True) )
 ]

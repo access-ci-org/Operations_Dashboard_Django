@@ -1,4 +1,4 @@
-{% extends "dashboard/bootstrap.html" %}
+{% extends "bootstrap.html" %}
 
 {# Load the tag library #}
 
@@ -10,6 +10,7 @@
 
 {# Our application stuff #}
 {% load static %}
+<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
 {% load get_settings %}
 
 {% block bootstrap5_content %}
@@ -41,7 +42,7 @@
 
         <li class="nav-item">
         {% if page == 'log_out' %}<a class="nav-link active" aria-current="page" href="#">
-        {% else %}<a class="nav-link" href="{% url 'dashboard:clear_and_logout' %}">
+        {% else %}<a class="nav-link" href="{% url 'web:clear_and_logout' %}">
         {% endif %}Log Out ({{ user.username }})</a></li>
     </ul>
 </div>

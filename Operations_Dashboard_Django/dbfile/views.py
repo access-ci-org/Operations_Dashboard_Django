@@ -4,7 +4,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer
 
-from dashboard.exceptions import MyAPIException
+from dashboard_tools.exceptions import MyAPIException
 from .models import *
 from .serializers import *
 

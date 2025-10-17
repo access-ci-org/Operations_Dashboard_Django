@@ -1,5 +1,15 @@
+v0.20.0 2025-10-17 JP
+  - Increase AppCode name (pk) max_length to support long specific names
+  - Apply ALIASES to ALIASES, needed initially for the redirect use case
+  - Deprecate Django App IntegrationBadgesUI
+  - New /dashboard_tools Django App following the Warehouse /warehouse_tools pattern
+  - New /web Django App following the Warehouse /web pattern
+  - Make /dashboard a DashApp path, move needed code to /dashboard_tools, /web, templates, move inactive code to /dashboard_old
+  - Have / redirect to /dashboard
+  - Static content cleanup, rename favicon.ico as favicon.png, reference static/img/favicon.png
 v0.19.1 2025-10-09 EBB
   - Fixed login redirect to correctly follow next= query parameter
+
 v0.19.0 2025-10-09 JP
   - Introduce dashapp alias field
   - Implement AppCode alias substitution and pass both appcode + alias to the template renderer
