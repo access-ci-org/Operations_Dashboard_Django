@@ -8,7 +8,7 @@
 
 {% block bootstrap5_extra_head %}
     <link type="text/css" href="//code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-    <link type="text/css" href="{% static 'dashboard/style-dashboard.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'style-dashboard.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block bootstrap5_extra_script %}
@@ -26,7 +26,7 @@
             <tr style="vertical-align: top;">
                 <td>
                     <a href="https://operations.access-ci.org/" title="Operations Home" rel="home">
-                        <img src="/static/dashboard/img/ACCS050322_ACCESS_Brand_Operations-RGB.png" alt="Home"></a>
+                        <img src="/static/img/ACCS050322_ACCESS_Brand_Operations-RGB.png" alt="Home"></a>
                 </td>
                 <td style="vertical-align: top;">
                     <h2 class="display-6 fw-bold">{% settings_value "APP_NAME" %}</h2>

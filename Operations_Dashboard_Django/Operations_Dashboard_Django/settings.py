@@ -61,12 +61,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.cilogon',
     # Our Apps
-    'dashboard',
+    'dashboard_tools',
     'access_django_user_admin',
+    'badgetoken',
     'dashapp',
     'dbfile',
-    'badgetoken',
-    'IntegrationBadgesUI',
+    'web',
 ]
 
 SITE_ID = 1
@@ -146,7 +146,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.template'
                 '.context_processors.request',
-                'dashboard.context_processors.app_context_processor',
+                'dashboard_tools.context_processors.app_context_processor',
                 
 #                'django.template.context_processors.debug',
 # Add if needed by Dinuka's badges
@@ -220,6 +220,9 @@ USE_TZ = True
 
 STATIC_ROOT = CONF['STATIC_ROOT']
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (
+    os.path.join( os.path.dirname(__file__),  '../static' ),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

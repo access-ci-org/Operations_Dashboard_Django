@@ -1,4 +1,4 @@
-{% extends "dashboard/bootstrap.html" %}
+{% extends "bootstrap.html" %}
 
 {# Load the tag library #}
 
@@ -10,6 +10,7 @@
 
 {# Our application stuff #}
 {% load static %}
+<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
 {% load get_settings %}
 
 {% block bootstrap5_content %}

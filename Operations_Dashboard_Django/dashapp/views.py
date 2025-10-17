@@ -1,12 +1,12 @@
 from django.conf import settings
-from django.shortcuts import render
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.response import Response
 
-from dashboard.exceptions import *
-from dashboard.responses  import *
+from dashboard_tools.exceptions import MyAPIException
+from dashboard_tools.responses  import MyAPIResponse
 from .serializers import *
 
 # Create your views here.
@@ -44,6 +44,13 @@ class DashApps_Menu_v1(GenericAPIView):
             if ac.appcode.alias:
                 ALIASES[f'%{ac.appcode.alias}%'] = ac.appcode.code
 
+        for _ in range(2): # Apply ALIASES to ALIASES at most 2 levels
+            for a1 in ALIASES:
+                if '%' in ALIASES[a1]:
+                    for a2 in ALIASES:
+                        if a1 != a2:
+                            ALIASES[a1] = ALIASES[a1].replace(a2, ALIASES[a2])
+
         for ac in appcodes:
             tmp = str(ac.appcode.code) # A copy
             for _ in range(2): # Two levels only
@@ -54,10 +61,6 @@ class DashApps_Menu_v1(GenericAPIView):
         for al in ALIASES:
             data['appcode'][al.strip('%')] = mark_safe(ALIASES[al])
 
-        # for i in DashAppCode.objects.filter(dashapp=thisapp.app_id):
-        #     data['appcode'][i.appcode.name] = mark_safe(i.appcode.code.\
-        #         replace('%APP_BASENAME%', myapp.path).\
-        #         replace('%OPERATIONS_API_BASE_URL%', settings.OPERATIONS_API_BASE_URL) )
         if request.accepted_renderer.format == 'json':
             return MyAPIResponse(data)
 
@@ -89,15 +92,24 @@ class DashApp_Run_v1(GenericAPIView):
             '%APP_BASENAME%': thisapp.path,
             '%OPERATIONS_API_BASE_URL%': settings.OPERATIONS_API_BASE_URL,
         }
+
         for ac in appcodes:
             if ac.appcode.alias:
                 ALIASES[f'%{ac.appcode.alias}%'] = ac.appcode.code
 
+        for _ in range(2): # Apply ALIASES to ALIASES at most 2 levels
+            for a1 in ALIASES:
+                if '%' in ALIASES[a1]:
+                    for a2 in ALIASES:
+                        if a1 != a2:
+                            ALIASES[a1] = ALIASES[a1].replace(a2, ALIASES[a2])
+
         for ac in appcodes:
             tmp = str(ac.appcode.code) # A copy
-            for _ in range(2): # Two levels only
-                for al in ALIASES:
-                    tmp = tmp.replace(al, ALIASES[al])
+            if '%' in tmp:
+                for _ in range(2): # Two levels only
+                    for al in ALIASES:
+                        tmp = tmp.replace(al, ALIASES[al])
             data['appcode'][ac.appcode.name] = mark_safe(tmp)
 
         for al in ALIASES:
