@@ -1,4 +1,4 @@
-{% extends "bootstrap.html" %}
+{% extends "web/bootstrap.html" %}
 
 {# Load the tag library #}
 
@@ -24,26 +24,25 @@
         <li class="nav-item">
         {% if page == 'index' %}<a class="nav-link active" aria-current="page" href="#">
         {% else %}<a class="nav-link" href="{% url 'dashboard:index' %}">
-        {% endif %}Dashboard</a></li>
+        {% endif %}Home</a></li>
 
         {% if request.user|can_admin_users %}
-            {% settings_value 'APP_NAME' as app_name %}
-            {% if app_name == 'Dashboard' %}
-                <li class="nav-item">
-                    {% if page == 'access_django_user_admin' %}
-                        <a class="nav-link active" aria-current="page" href="#">
-                    {% else %}
-                        <a class="nav-link" href="{% url 'access_django_user_admin:index' %}" target="_blank">
-                    {% endif %}
-                    Django User Admin</a>
-                </li>
-            {% endif %}
+            <li class="nav-item">
+                {% if page == 'access_django_user_admin' %}
+                    <a class="nav-link active" aria-current="page" href="#">
+                {% else %}
+                    <a class="nav-link" href="{% url 'access_django_user_admin:index' %}" target="_blank">
+                {% endif %}
+                Django User Admin</a>
+            </li>
         {% endif %}
 
         <li class="nav-item">
         {% if page == 'log_out' %}<a class="nav-link active" aria-current="page" href="#">
-        {% else %}<a class="nav-link" href="{% url 'web:clear_and_logout' %}">
-        {% endif %}Log Out ({{ user.username }})</a></li>
+        {% elif user.is_authenticated %}<a class="nav-link" href="{% url 'account_logout' %}?next=/">Log Out ({{ user.username }})
+        {% else %}<a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+        {% endif %}
+        </a></li>
     </ul>
 </div>
 

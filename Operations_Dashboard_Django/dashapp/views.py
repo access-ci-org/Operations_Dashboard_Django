@@ -23,10 +23,10 @@ class DashApps_Menu_v1(GenericAPIView):
         try:
             thisapp = DashApp.objects.get(path=thispath)
         except (DashApp.DoesNotExist):
-            raise MyAPIException(code=status.HTTP_400_BAD_REQUEST, detail=f'Dashboard application "{thispath}" does not exist')
+            raise MyAPIException(code=status.HTTP_400_BAD_REQUEST, detail=f'Dashboard application path "{thispath}" does not exist')
 
         try:
-            apps = DashApp.objects.filter(path__startswith=f'{thispath}/'). filter(disabled=False).exclude(app_id=thisapp.app_id).order_by('name')
+            apps = DashApp.objects.filter(path__startswith=f'{thispath}/').filter(disabled=False).exclude(app_id=thisapp.app_id).order_by('name')
         except Exception as exc:
             raise MyAPIException(code=status.HTTP_400_BAD_REQUEST, detail=f'Error retrieving Dashboard Apps')
         data = {

@@ -27,18 +27,18 @@ def viewers_check(user):
     return user.groups.filter(name='editors').exists() or user.groups.filter(name='viewers').exists()
 
 def unprivileged(request):
-    return render(request, 'dashboard/unprivileged.html')
+    return render(request, 'web/unprivileged.html')
 
 def is_privileged(request):
     return True if request.user.username == 'navarro' else False
 
 #@login_required
-#@user_passes_test(viewers_check, login_url=reverse_lazy('dashboard:unprivileged'))
+#@user_passes_test(viewers_check, login_url=reverse_lazy('web:unprivileged'))
 def index(request):
     """
     Main dashboard
     """
-    return render(request, 'dashboard/dashboard_index.html')
+    return render(request, 'dashboard_index_orig.html')
 
 @login_required
 def login(request):
@@ -50,15 +50,3 @@ def login(request):
 #    logger.info('{} {}'.format(request.user.username, msg))
 #    make_log_entry(request.user.username, msg)
     return redirect(reverse('dashboard:index'))
-
-@login_required
-def clear_and_logout(request):
-#   Clear any locks by current user
-#    EditLock.objects.filter(username=request.user.username).delete()
-#   Standard logging handled in signals.py
-    return redirect(reverse('account_logout'))
-
-@login_required
-def edit_sorry(request):
-    context = {'app_name': settings.APP_NAME}
-    return render(request, 'dashboard/edit_sorry.html', context)
