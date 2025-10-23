@@ -1,3 +1,14 @@
+v0.21.0 2025-10-122 JP
+  - Redirect legacy /IntegrationBadgesUI to /dashboard/integration
+  - Move to templates/web/ base_nav*.html, bootstrap.html, edit_sorry.html
+  - Move to templates/ various other htnl files
+  - Pattern settings.py context_processors on Django5 default example
+  - Set LOGIN_REDIRECT_URL to landing page
+  - Fix/improve login/logout menu nav, states, templates elements, and views
+  - Fix access_django_user_admin nav template code
+  - Change APP_NAME to "Operations Dashboard"
+  - Remove some cruft
+
 v0.20.0 2025-10-17 JP
   - Increase AppCode name (pk) max_length to support long specific names
   - Apply ALIASES to ALIASES, needed initially for the redirect use case

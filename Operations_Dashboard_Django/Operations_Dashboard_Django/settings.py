@@ -87,7 +87,7 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/cilogon/login/'
 LOGIN_URL = '/accounts/cilogon/login/'
-LOGIN_REDIRECT_URL = '/dashboard/login'
+LOGIN_REDIRECT_URL = '/'
 #SOCIALACCOUNT_ADAPTER = 'dashboard.views.MySocialAccountAdapter'
 SOCIALACCOUNT_STORE_TOKENS = True
 SOCIALACCOUNT_QUERY_EMAIL = True
@@ -142,19 +142,18 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.template'
-                '.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                # Add your custom context processors here
                 'dashboard_tools.context_processors.app_context_processor',
                 
-#                'django.template.context_processors.debug',
-# Add if needed by Dinuka's badges
-#                'django.template.context_processors.i18n',
-#                'django.template.context_processors.media',
-#                'django.template.context_processors.static',
-#                'django.template.context_processors.tz',
-#
+                # Add if needed by Dinuka's badges
+            #    'django.template.context_processors.i18n',
+            #    'django.template.context_processors.media',
+            #    'django.template.context_processors.static',
+            #    'django.template.context_processors.tz',
             ],
         },
     },
@@ -271,9 +270,9 @@ LOGGING = {
     }
 }
 
-APP_NAME = 'Dashboard'
+APP_NAME = 'Operations Dashboard'
 APP_VERSION = CONF['APP_VERSION']
 #URLs for dashboard webapp
 OPERATIONS_API_BASE_URL = CONF['OPERATIONS_API_BASE_URL']
 # For legacy Django embedded WebApp
-OPERATIONS_INTEGRATION_BADGES_WEBAPP_VERSION = '1.0.48'
+# OPERATIONS_INTEGRATION_BADGES_WEBAPP_VERSION = '1.0.48'

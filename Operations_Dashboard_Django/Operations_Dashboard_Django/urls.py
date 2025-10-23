@@ -31,7 +31,9 @@ urlpatterns = [
     path('dashview/', include('dashapp.urls', namespace='dashview')),
     path('dbfile/', include('dbfile.urls', namespace='dbfile')),
     path('badgetoken/', include('badgetoken.urls') ),
+    path('IntegrationBadgesUI/<path:path>', RedirectView.as_view( url='/dashboard/integration/%(path)s', permanent=False, query_string=True) ),
     path('access_django_user_admin/', include('access_django_user_admin.urls', namespace='access_django_user_admin')),
-    path('web', include('web.urls', namespace='web')),
-    path('login/', RedirectView.as_view(url='/accounts/cilogon/login', query_string=True) )
+    path('web/', include('web.urls', namespace='web')),
+    path('login/', RedirectView.as_view(url='/accounts/cilogon/login', query_string=True), name='login' ),
+    path('logout/', RedirectView.as_view(url='/accounts/cilogon/logout', query_string=True), name='logout' ),  
 ]

@@ -39,7 +39,7 @@ def index(request):
     """
     Main dashboard
     """
-    return render(request, 'dashboard/dashboard_index.html')
+    return render(request, 'web/dashboard_index_orig.html')
 
 @login_required
 def login(request):
@@ -62,4 +62,4 @@ def clear_and_logout(request):
 @login_required
 def edit_sorry(request):
     context = {'app_name': settings.APP_NAME}
-    return render(request, 'dashboard/edit_sorry.html', context)
+    return render(request, 'web/edit_sorry.html', context)
