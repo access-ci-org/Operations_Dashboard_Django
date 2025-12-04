@@ -1,4 +1,7 @@
-v0.21.0 2025-10-122 JP
+v0.21.1 2025-12-04 JP
+  - Remove custom search_path in postgres connection
+
+v0.21.0 2025-10-22 JP
   - Redirect legacy /IntegrationBadgesUI to /dashboard/integration
   - Move to templates/web/ base_nav*.html, bootstrap.html, edit_sorry.html
   - Move to templates/ various other htnl files
