@@ -1,5 +1,10 @@
+v0.22.0 2025-12-18 JP
+  - Python 3.12, Django 5.2, and uv changes
+  - Enable html in app card description
+  - New APP_NAME config variables sets the site Title
+
 v0.21.1 2025-12-04 JP
-  - Remove custom search_path in postgres connection
+  - Remove forced search_path in postgres connection, rely on ownership
 
 v0.21.0 2025-10-22 JP
   - Redirect legacy /IntegrationBadgesUI to /dashboard/integration
