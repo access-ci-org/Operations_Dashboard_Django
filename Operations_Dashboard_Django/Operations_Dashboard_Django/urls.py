@@ -20,11 +20,13 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from allauth.socialaccount.providers.oauth2.views import OAuth2LoginView
 from access_django_user_admin import views
+from .views import Debug_Dump
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/dashboard/') ),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
+    path('dump.html', Debug_Dump.as_view(), name='debug-dump'),
     # These 3 paths all use the same dashapp application
     path('dashapp/', include('dashapp.urls', namespace='dashapp')),
     path('dashboard/', include('dashapp.urls', namespace='dashboard')),

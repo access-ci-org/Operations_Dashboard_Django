@@ -103,7 +103,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # 'allauth.account.middleware.AccountMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -264,7 +264,7 @@ LOGGING = {
     },
 }
 
-APP_NAME = "Operations Dashboard"
+APP_NAME = CONF.get("APP_NAME", "APP_NAME_NOT_SET")
 APP_VERSION = CONF["APP_VERSION"]
 # URLs for dashboard webapp
 OPERATIONS_API_BASE_URL = CONF["OPERATIONS_API_BASE_URL"]
