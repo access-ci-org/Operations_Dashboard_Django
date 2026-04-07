@@ -1,3 +1,7 @@
+v0.22.1 2026-04-07 JP
+  - Cleanup database/SETUP instructions, this matches Operations_Django_Development
+  - Fix database/pg_{dump, restore}_dashboard.sh scripts
+
 v0.22.0 2025-12-18 JP
   - Python 3.12, Django 5.2, and uv changes
   - Enable html in app card description

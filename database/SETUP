@@ -1,24 +1,25 @@
-### ONLY ONCE for a new PostgreSQL server
-$ psql -p 5434 postgres
+### Only once for a new PostgreSQL server
+
+$ psql -h <server> postgres
 UPDATE pg_database SET datcollate='en_US.UTF-8', datctype='en_US.UTF-8';
 
-### NEW DATABASE
+### CREATE ROLES and DATABASE
+
+$ psql -h <server> postgres
 CREATE ROLE dashboard_owner WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION ENCRYPTED PASSWORD ‘...’;
-### IN AWS PRODUCTION, NEXT NEEDED
-GRANT dashboard_owner to opsdba;
-
-CREATE DATABASE dashboard1 WITH OWNER dashboard_owner encoding "UTF8" LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
-
-### NEW ROLE
-$ psql -p 5434 dashboard1
 CREATE ROLE dashboard_django WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION ENCRYPTED PASSWORD ‘...’;
-### IN AWS PRODUCTION, NEXT NEEDED
+
+### These are needed in production on AWS
+GRANT dashboard_owner to opsdba;
 GRANT dashboard_django to opsdba;
 
-## RERUN after DROP OWNED
-CREATE SCHEMA dashboard AUTHORIZATION dashboard_django;
+CREATE DATABASE dashboard1 WITH OWNER dashboard_owner encoding "UTF8" LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
+CREATE DATABASE dashboard_beta WITH OWNER dashboard_owner encoding "UTF8" LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
+CREATE DATABASE dashboard_dev WITH OWNER dashboard_owner encoding "UTF8" LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
+..
 
-ALTER ROLE dashboard_django in database dashboard1 SET search_path = 'dashboard';
+### CREATE SCHEMA, and rerun after DROP OWNED for DB RESET
 
-ALTER ROLE dashboard_owner in database dashboard1 SET search_path = 'dashboard';
-
+# Repeat for each database
+$ psql -h <server> dashboard1
+CREATE SCHEMA dashboard_django AUTHORIZATION dashboard_django;
