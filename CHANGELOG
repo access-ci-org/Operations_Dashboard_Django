@@ -1,5 +1,8 @@
+v0.22.2 2026-04-07 JP
+  - Add to database/SETUP details about which user to connect as
+
 v0.22.1 2026-04-07 JP
-  - Cleanup database/SETUP instructions, this matches Operations_Django_Development
+  - Cleanup database/SETUP instructions, which matches Operations_Django_Development
   - Fix database/pg_{dump, restore}_dashboard.sh scripts
 
 v0.22.0 2025-12-18 JP

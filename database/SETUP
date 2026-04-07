@@ -1,11 +1,11 @@
 ### Only once for a new PostgreSQL server
 
-$ psql -h <server> postgres
+$ psql -h <server> -U opsdba postgres
 UPDATE pg_database SET datcollate='en_US.UTF-8', datctype='en_US.UTF-8';
 
 ### CREATE ROLES and DATABASE
 
-$ psql -h <server> postgres
+$ psql -h <server> -U opsdba postgres
 CREATE ROLE dashboard_owner WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION ENCRYPTED PASSWORD ‘...’;
 CREATE ROLE dashboard_django WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION ENCRYPTED PASSWORD ‘...’;
 
@@ -21,5 +21,5 @@ CREATE DATABASE dashboard_dev WITH OWNER dashboard_owner encoding "UTF8" LC_COLL
 ### CREATE SCHEMA, and rerun after DROP OWNED for DB RESET
 
 # Repeat for each database
-$ psql -h <server> dashboard1
+$ psql -h <server> -U opsdba dashboard1
 CREATE SCHEMA dashboard_django AUTHORIZATION dashboard_django;
