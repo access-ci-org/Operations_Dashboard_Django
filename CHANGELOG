@@ -1,3 +1,6 @@
+v0.23.0 2026-04-30 JP
+  - Modify access-ci-ui required fonts in head
+
 v0.22.2 2026-04-07 JP
   - Add to database/SETUP details about which user to connect as
 
