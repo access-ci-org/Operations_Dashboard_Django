@@ -1,3 +1,6 @@
+v0.23.1 2026-05-01 JP
+  - Switch from access_ci_ui_footer_v1 to v2 in integration_badges_ui_cdn.html template
+
 v0.23.0 2026-04-30 JP
   - Modify access-ci-ui required fonts in head
 
