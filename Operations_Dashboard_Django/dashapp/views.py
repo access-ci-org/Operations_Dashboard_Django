@@ -64,6 +64,7 @@ class DashApps_Menu_v1(GenericAPIView):
         if request.accepted_renderer.format == 'json':
             return MyAPIResponse(data)
 
+        data['page'] = 'index'
         return Response(data, status=200, template_name=thisapp.template)
 
 class DashApp_Run_v1(GenericAPIView):
