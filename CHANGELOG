@@ -1,3 +1,6 @@
+v0.23.2 2026-06-11 jlambertson
+  - Update navigation tabs to match shared app-level/service index tab style
+
 v0.23.1 2026-05-01 JP
   - Switch from access_ci_ui_footer_v1 to v2 in integration_badges_ui_cdn.html template
 
