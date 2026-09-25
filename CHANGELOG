@@ -1,3 +1,6 @@
+v0.24.1 2026-09-25 JP
+  - Apply <main> tag not just to basic_app_cdn.html, but other relevant html pages
+
 v0.24.0 2026-09-25 ddesilva
   - Add <main> tag is to mark the core, unique content of a web page. Used for assistive technologies.
 
