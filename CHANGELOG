@@ -1,3 +1,6 @@
+v0.24.0 2026-09-25 ddesilva
+  - Add <main> tag is to mark the core, unique content of a web page. Used for assistive technologies.
+
 v0.23.2 2026-06-11 jlambertson
   - Update navigation tabs to match shared app-level/service index tab style
 
