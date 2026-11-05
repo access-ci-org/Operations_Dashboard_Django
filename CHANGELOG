@@ -1,5 +1,8 @@
+v0.25.1 2026-11-05 JP
+  - Configure the ACCESS Google Tag Manager container, on all normal pages
+
 v0.25.0 2026-11-05 JP
-  - Configure the ACCESS Google Tag Manager container
+  - Configure the ACCESS Google Tag Manager container, on WebApp pages
 
 v0.24.1 2026-09-25 JP
   - Apply <main> tag not just to basic_app_cdn.html, but other relevant html pages
