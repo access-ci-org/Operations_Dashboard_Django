@@ -91,6 +91,7 @@ LOGIN_REDIRECT_URL = "/"
 # SOCIALACCOUNT_ADAPTER = 'dashboard.views.MySocialAccountAdapter'
 SOCIALACCOUNT_STORE_TOKENS = True
 SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # SESSION COOKIE needs to be readable by the IntegrationBadgesUI webapp
 SESSION_COOKIE_HTTPONLY = False
@@ -101,6 +102,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "access_ci_django_sso_middleware.middleware.ACCESSCISSOMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
