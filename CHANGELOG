@@ -1,3 +1,6 @@
+v0.26.0 2026-11-05 EBB
+  - Add configuration for ACCESS-CI SSO
+
 v0.25.1 2026-11-05 JP
   - Configure the ACCESS Google Tag Manager container, on all normal pages
 
